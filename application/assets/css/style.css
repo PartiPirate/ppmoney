@@ -1,0 +1,362 @@
+/*
+    Copyright 2015 Cédric Levieux, Parti Pirate
+
+    This file is part of PPMoney.
+
+    PPMoney is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    PPMoney is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
+*/
+nav img {
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+main {
+	margin-left: 45px;
+	width: 995px;
+}
+
+h1 {
+    font-family: 'Ubuntu Bold', 'Ubuntu';
+	font-size: 33px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: normal;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+h2 {
+    font-family: 'Arial Gras', Arial;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: bold;
+    text-align: left;
+}
+
+h2 span {
+	display: inline-block;
+	width: 552px;
+	margin-right: 25px;
+	float: right;
+	font-family: 'Arial Normal', Arial;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+}
+
+h3 {
+	font-family: 'Arial Gras', Arial;
+	font-size: 21px;
+	font-style: normal;
+	font-weight: bold;
+	text-align: left;
+	margin: 0 0 10px 0;
+}
+
+.pull-right div {
+	margin-bottom: 25px;
+	padding: 10px;
+}
+
+.pull-right div p {
+	margin-left: 7px;
+	margin-right: 7px;
+	font-family: 'Arial Normal', Arial;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+}
+
+#righters {
+	width: 270px;
+	color: #333333;
+}
+
+#righters div {
+	border: #797979 solid 1px;
+	background: rgba(254, 164, 0, 0.6);
+}
+
+#righters div a {
+	color: inherit;
+	text-decoration: underline !important;
+}
+
+#chooseDiv {
+	width: 694px;
+	height: 53px;
+	border: #797979 solid 1px;
+	background: rgba(254, 164, 0, 0.6);
+	padding-right: 20px;
+	padding-top: 5px;
+    	padding-bottom: 10px;
+    	padding-left: 12px;
+}
+
+#chooseDiv p {
+	width: 290px;
+	font-family: 'Arial Normal', Arial;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+}
+
+#chooseDiv label {
+	font-family: 'Arial Normal', Arial;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: normal;
+	text-align: left;
+	margin-top: 5px;
+	margin-right: 20px;
+}
+
+ul#joinType {
+	margin-top: 17px;
+	margin-left: 0px;
+	-webkit-padding-start: 0px;
+}
+
+ul#joinType li {
+	list-style: none;
+	font-family: 'Arial Normal', Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+}
+
+ul li label {
+    font-weight: normal;
+    margin-bottom: 0px;
+}
+
+ul li input[type=radio] {
+	margin: 10px 3px 3px 2px;
+	position: relative;
+	top: 2px;
+}
+
+#crowdfundingDiv ul {
+    -webkit-padding-start: 20px;
+}
+
+#crowdfundingDiv li {
+    font-size: inherit;
+    list-style: inherit;
+}
+
+.explanation {
+	width: 694px;
+	font-family: 'Arial Normal', Arial;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+	margin-top: 45px;
+}
+
+.explanation label {
+    font-weight: normal;
+}
+
+#coordinatesDiv div, #forumDiv div, #localSectionDiv div, #donationDiv div, #otherInformationDiv div {
+	border: #797979 solid 2px;
+    padding: 13px 20px 20px 20px;
+}
+
+#forumDiv div, #donationDiv div {
+    height: 90px;
+}
+
+#localSectionDiv div {
+    height: 95px;
+}
+
+#coordinatesDiv div div, #forumDiv div div,
+#localSectionDiv div div, #donationDiv div div,
+#otherInformationDiv div div {
+    border: 0;
+    padding: 0;
+    height: auto;
+}
+
+#toForumDiv {
+	width: 400px;
+}
+
+#pseudoDiv {
+    width: 210px;
+}
+
+#renewAddressDiv {
+    height: 30px !important;
+}
+
+#identityDiv, #emailDiv, #address1Div, #address2Div {
+	height: 55px !important;
+}
+
+#identityDiv #lastnameInputDiv, #identityDiv #lastnameInputDiv input,
+#identityDiv #firstnameInputDiv, #identityDiv #firstnameInputDiv input,
+#identityDiv #emailInputDiv, #identityDiv #emailInputDiv input,
+#emailDiv #emailInputDiv, #emailDiv #emailInputDiv input {
+    width: 196px;
+}
+
+#address2Div #zipcodeInputDiv, #address2Div #zipcodeInputDiv input {
+    width: 100px;
+}
+
+#address2Div #cityInputDiv, #address2Div #cityInputDiv input {
+    width: 170px;
+}
+
+#address2Div #countryInputDiv, #address2Div #countryInputDiv input {
+    width: 150px;
+}
+
+#address2Div #telephoneInputDiv, #address2Div #telephoneInputDiv input {
+    width: 140px;
+}
+
+#localSectionJoinDiv, #localSectionJoinDiv select {
+    width: 210px;
+}
+
+#localSectionDonationDiv, #localSectionDonationDiv input {
+    width: 180px;
+}
+
+#localSectionGuide {
+    width: 220px;
+}
+
+#identityDiv #lastnameInputDiv, #identityDiv #firstnameInputDiv,
+#emailDiv #emailInputDiv,
+#address2Div #zipcodeInputDiv, #address2Div #cityInputDiv, #address2Div #countryInputDiv,
+#localSectionJoinDiv {
+    margin-right: 30px;
+}
+
+#emailExplanationDiv {
+	width: 400px;
+	font-family: 'Arial Normal', Arial;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+}
+
+#chooseDiv input[type=radio], #coordinatesDiv input[type=radio] {
+	margin-right: 2px;
+    position: relative;
+    top: 2px;
+}
+
+#coordinatesDiv label {
+	margin-right: 20px;
+}
+
+#donationDiv input {
+    margin-top: 5px;
+}
+
+#realCostSpan {
+	width: 110px;
+	height: 33px;
+    border: #797979 solid 1px;
+    margin: 0px 25px 0 25px;
+    padding-top: 5px;
+    background: white;
+	font-family: 'Arial Gras', Arial;
+	font-size: 19px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: normal;
+	text-align: center;
+}
+
+#realCostDiv {
+    border: #797979 solid 1px !important;
+    background: #cccccc;
+    width: 428px;
+    height: 50px !important;
+    padding-top: 7px !important;
+    padding-left: 7px !important;
+}
+
+#iDonateDiv {
+	font-family: 'Arial Gras', Arial;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: normal;
+}
+
+#otherInformationDiv div textarea {
+	width: 100%;
+	margin-top: 5px;
+}
+
+#forumDiv p, #iCertifyDiv p, #otherInformationDiv p {
+	margin-left: 15px;
+}
+
+#forumDiv input[type=checkbox], #iCertifyDiv input[type=checkbox], #otherInformationDiv input[type=checkbox] {
+	margin-top: 0;
+}
+
+#localSectionGuide {
+	font-family: 'Arial Normal', Arial;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+}
+
+#iJoinButton, #iDonateButton {
+	font-family: 'Ubuntu Bold', Ubuntu;
+	font-size: 25px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	height: 50px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-top: 7px;
+}
+
+.error {
+	color: red;
+}
+
+.project {
+    font-family: 'Ubuntu Bold', Ubuntu;
+	display: inline-block;
+	border: 1px solid black;
+	margin: 10px;
+	width: 400px;
+	height: 250px;
+	padding: 0 10px 0 10px;
+}
+
+.project h2, .project h3, .project h4 {
+    font-family: 'Ubuntu Bold', Ubuntu;
+}

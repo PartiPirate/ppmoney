@@ -1,0 +1,1 @@
+30 0 * * * cd /var/www/[chemin de l'application]/batch/ && php treasurer.php > treasurer.log
