@@ -240,8 +240,12 @@ ul li input[type=radio] {
     width: 210px;
 }
 
-#localSectionDonationDiv, #localSectionDonationDiv input {
+#localSectionDonationDiv {
     width: 180px;
+}
+
+#localSectionDonationDiv input {
+    width: 159px;
 }
 
 #localSectionGuide {

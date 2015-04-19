@@ -84,7 +84,7 @@ include_once("header.php");
 				} ?>
 		<p>
 			<?php  echo lang("pp_money_donation_another_one"); ?>
-			<input tabindex="99" type="text" name="projectAdditionalDonation" id="donationInput" value="" />
+			<input tabindex="99" type="text" name="projectAdditionalDonation" id="donationInput" value="" /> &euro;
 		</p>
 	</div>
 
@@ -161,7 +161,7 @@ include_once("header.php");
 			<div id="zipcodeInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_zipcode"); ?> <span class="error">*</span><br/><input tabindex="104" type="text" name="zipcode" /></div>
 			<div id="cityInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_city"); ?> <span class="error">*</span><br/><input tabindex="105" type="text" name="city" /></div>
 			<div id="telephoneInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_telephone"); ?><br/><input tabindex="107" type="text" name="telephone" /></div>
-			<div id="countryInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_country"); ?> <span class="error">*</span><br/><input tabindex="106" type="text" name="country" /></div>
+			<div id="countryInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_country"); ?> <span class="error">*</span><br/><input tabindex="106" type="text" name="country" value="France" /></div>
 		</div>
 
 	</div>
