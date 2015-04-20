@@ -18,7 +18,7 @@
 */
 
 // Can only be call from CLI
-//if (php_sapi_name() != "cli") exit();
+if (php_sapi_name() != "cli") exit();
 
 //error_reporting(E_ALL);
 $path = "../";
