@@ -32,7 +32,7 @@ $PBX_CMD = $reference;
 // L'email du donateur
 $PBX_PORTEUR = $email;
 // Le format des données retour
-$PBX_RETOUR = "Mt:M;Ref:R;Auto:A;Erreur:E";
+$PBX_RETOUR = "Mt:M;Ref:R;Auto:A;Erreur:E;Sign:K";
 // L'algorithme de hashage
 $PBX_HASH = "SHA512";
 // Date du paiement

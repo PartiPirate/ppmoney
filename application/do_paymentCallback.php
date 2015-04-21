@@ -17,6 +17,7 @@
     along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("config/database.php");
+include_once("config/paybox.php");
 require_once("engine/bo/TransactionBo.php");
 
 $code = $_REQUEST["code"];
@@ -31,9 +32,24 @@ if ($computedCode != $code) {
 	exit();
 }
 
+//$payboxIp = $_SERVER["REMOTE_ADDR"];
+$payboxIp = $_SERVER["HTTP_X_REAL_IP"];
+$allowed = false;
+
 $transactionBo = TransactionBo::newInstance(openConnection());
 
 $transaction = $transactionBo->getTransactionByReference($reference, $amount / 100);
+
+foreach($config["paybox"]["allowed_ips"] as $allowedIp) {
+	if ($allowedIp == $payboxIp) {
+		$allowed = true;
+		break;
+	}
+}
+
+if (!$allowed) {
+	exit();
+}
 
 if ($transaction) {
 
