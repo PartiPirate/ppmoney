@@ -23,12 +23,24 @@ function isValidMail(value) {
     return mailRegExp.test(value.toUpperCase());
 }
 
-function computeRealCost() {
+function isValidAmount(amount) {
+	amount = "" + amount;
+	amount = amount.replace(",", ".");
+
+	return (amount == amount * 1.) && amount < 7500 && amount > 0;
+}
+
+function computeTotalAmount() {
 	var cost = 0;
 	if ($("#donationInput").val()) {
 		cost -= -$("#donationInput").val();
 	}
 
+	return cost;
+}
+
+function computeRealCost() {
+	var cost = computeTotalAmount();
 	var realCost = Math.ceil(cost * (1 - taxReduction));
 
 	$("#realCostSpan").html(realCost + "&euro;");
@@ -39,7 +51,15 @@ function isCompleteFormHandler(event) {
 
 	var isOk = true;
 
-	if (!$("input[name=lastname]").val()) {
+	if (!$("#donationInput").val() || !isValidAmount($("#donationInput").val())) {
+		isOk = false;
+		$("#donationInput").focus();
+	}
+	else if (computeTotalAmount() > 7500) {
+		isOk = false;
+		$("#donationInput").focus();
+	}
+	else if (!$("input[name=lastname]").val()) {
 		isOk = false;
 		$("input[name=lastname]").focus();
 	}

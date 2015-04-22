@@ -23,7 +23,14 @@ function isValidMail(value) {
     return mailRegExp.test(value.toUpperCase());
 }
 
-function computeRealCost() {
+function isValidAmount(amount) {
+	amount = "" + amount;
+	amount = amount.replace(",", ".");
+
+	return (amount == amount * 1.) && amount < 7500 && amount > 0;
+}
+
+function computeTotalAmount() {
 	var cost = 0;
 	if ($("#donationInput").val()) {
 		cost -= -$("#donationInput").val();
@@ -37,6 +44,11 @@ function computeRealCost() {
 		cost -= -$("input[name=costRadio]:checked").val();
 	}
 
+	return cost;
+}
+
+function computeRealCost() {
+	var cost = computeTotalAmount();
 	var realCost = Math.ceil(cost * (1 - taxReduction));
 
 	$("#realCostSpan").html(realCost + "&euro;");
@@ -101,6 +113,19 @@ function isCompleteFormHandler(event) {
 			isOk = false;
 			$("input[name=renewEmail]").focus();
 		}
+	}
+
+	if ($("#localDonationInput").val() && !isValidAmount($("#localDonationInput").val())) {
+		isOk = false;
+		$("#localDonationInput").focus();
+	}
+	else if ($("#donationInput").val() && !isValidAmount($("#donationInput").val())) {
+		isOk = false;
+		$("#donationInput").focus();
+	}
+	else if (computeTotalAmount() > 7500) {
+		isOk = false;
+		$("#donationInput").focus();
 	}
 
 	if (isOk) {

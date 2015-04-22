@@ -24,6 +24,17 @@ $code = $_REQUEST["code"];
 $amount = $_REQUEST["Mt"];
 $reference = $_REQUEST["Ref"];
 $errorCode = $_REQUEST["Erreur"];
+$signature = $_REQUEST["Sign"];
+
+$signature = base64_decode($signature);
+$query = $_SERVER["QUERY_STRING"];
+$signedData = substr($query, strpos($query, "&Mt") + 1, strpos($query, "&Sign") - strpos($query, "&Mt") - 1);
+
+$isSigned = openssl_verify($signedData, $signature, $config["paybox"]["pem"]);
+
+if (!$isSigned) {
+	exit();
+}
 
 $computedCode = $reference . $amount;
 $computedCode = strtoupper(hash('md5', $computedCode, false));
