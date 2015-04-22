@@ -59,4 +59,11 @@ Interface de don/adhésion/financement participatif du Parti Pirate
                                             "194.2.160.66", "194.2.122.158",
                                             "195.25.7.146", "195.25.7.166");
 
+    $config["paybox"]["pem"] = "-----BEGIN PUBLIC KEY-----
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDe+hkicNP7ROHUssGNtHwiT2Ew
+    HFrSk/qwrcq8v5metRtTTFPE/nmzSkRnTs3GMpi57rBdxBBJW5W9cpNyGUh0jNXc
+    VrOSClpD5Ri2hER/GcNrxVRP7RlWOqB1C03q4QYmwjHZ+zlM4OUhCCAtSWflB4wC
+    Ka1g88CjFwRw/PB9kwIDAQAB
+    -----END PUBLIC KEY-----";
+
     ?>
