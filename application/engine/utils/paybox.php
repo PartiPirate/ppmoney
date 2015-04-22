@@ -20,6 +20,15 @@ along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 
 // on définit trois variables externes : $email, $amount en centime et $reference
 
+// Si le montant est supérieur à 7500€, on le bloque ici
+// Normalement, l'utilsateur a été alerté avant donc on se contente de bloquer
+if($amount > 750000) {
+  die('Les versements supérieurs à 7500€ à des partis politiques sont interdit. 
+       Merci de faire précédent sur votre navigateur et de recommencer.
+       Si le problème persiste, contactez le Parti Pirate');
+  exit;
+}
+
 // On récupère la date au format ISO-8601
 
 // On renseigne les différents paramètres de la requête de paiement
