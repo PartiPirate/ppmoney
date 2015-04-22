@@ -52,7 +52,7 @@ function getMailInstance() {
 function prepareAttachment($path) {
         $rn = "\r\n";
 
-        if (file_exists($path)) 
+        if (file_exists($path))
 	{
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $ftype = finfo_file($finfo, $path);
@@ -67,8 +67,8 @@ function prepareAttachment($path) {
 //            $msg .= 'X-Attachment-Id: ebf7a33f5a2ffca7_0.1' . $rn;
             $msg .= $rn . $attachment . $rn . $rn;
             return $msg;
-        } 
-	else 
+        }
+	else
 	{
             return false;
         }
@@ -86,11 +86,11 @@ function sendMail($from, $to, $subject, $content, $path = '', $cc = '', $bcc = '
         $headers .= 'Content-Type: multipart/related;boundary=' . $boundary . $rn;
 
         //adresses cc and ci
-        if ($cc != '') 
+        if ($cc != '')
 	{
             $headers .= 'Cc: ' . $cc . $rn;
         }
-        if ($bcc != '') 
+        if ($bcc != '')
 	{
             $headers .= 'Bcc: ' . $bcc . $rn;
         }
@@ -106,39 +106,39 @@ function sendMail($from, $to, $subject, $content, $path = '', $cc = '', $bcc = '
         $msg .= 'Content-Type: text/plain; charset=ISO-8859-1' . $rn;
         $msg .= strip_tags($content) . $rn;
 
-//Body Mode Html        
+//Body Mode Html
         $msg.= $rn . "--" . $boundary_content . $rn;
         $msg .= 'Content-Type: text/html; charset=ISO-8859-1' . $rn;
         $msg .= 'Content-Transfer-Encoding: quoted-printable' . $rn;
-        if ($_headers) 
+        if ($_headers)
 	{
             $msg .= $rn . '<img src=3D"cid:template-H.PNG" />' . $rn;
         }
         //equal sign are email special characters. =3D is the = sign
         $msg .= $rn . '<div>' . nl2br(str_replace("=", "=3D", $content)) . '</div>' . $rn;
-        if ($_headers) 
+        if ($_headers)
 	{
             $msg .= $rn . '<img src=3D"cid:template-F.PNG" />' . $rn;
         }
         $msg .= $rn . '--' . $boundary_content . '--' . $rn;
 
 //if attachement
-        if ($path != '' && file_exists($path)) 
+        if ($path != '' && file_exists($path))
 	{
             $conAttached = prepareAttachment($path);
-            if ($conAttached !== false) 
+            if ($conAttached !== false)
 	    {
                 $msg .= $rn . '--' . $boundary . $rn;
                 $msg .= $conAttached;
             }
         }
-        
+
 //other attachement : here used on HTML body for picture headers/footers
-        if ($_headers) 
+        if ($_headers)
 	{
             $imgHead = dirname(__FILE__) . '/../../../../modules/notification/ressources/img/template-H.PNG';
             $conAttached = self::prepareAttachment($imgHead);
-            if ($conAttached !== false) 
+            if ($conAttached !== false)
 	    {
                 $msg .= $rn . '--' . $boundary . $rn;
                 $msg .= $conAttached;
@@ -146,7 +146,7 @@ function sendMail($from, $to, $subject, $content, $path = '', $cc = '', $bcc = '
 
             $imgFoot = dirname(__FILE__) . '/../../../../modules/notification/ressources/img/template-F.PNG';
             $conAttached = self::prepareAttachment($imgFoot);
-            if ($conAttached !== false) 
+            if ($conAttached !== false)
 	    {
                 $msg .= $rn . '--' . $boundary . $rn;
                 $msg .= $conAttached;
@@ -160,5 +160,12 @@ function sendMail($from, $to, $subject, $content, $path = '', $cc = '', $bcc = '
         return mail($to, $subject, $msg, $headers);
 }
 
+function subjectEncode($subject) {
+	if (isset($config["server"]["line"]) && $config["server"]["line"]) {
+		$subject = "[".$config["server"]["line"]."]" . $subject;
+	}
+
+	return mb_encode_mimeheader(utf8_decode($subject), "ISO-8859-1");
+}
 
 ?>

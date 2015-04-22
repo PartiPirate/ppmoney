@@ -82,7 +82,7 @@ if (isset($purpose["join"])) {
 	"To: secretaires-nationaux@lists.partipirate.org\r\n" .
 	"X-Mailer: PHP/" . phpversion();
 
-	$mail->Subject = mb_encode_mimeheader(utf8_decode($subject), "ISO-8859-1");
+	$mail->Subject = subjectEncode($subject);
 	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
 	$mail->AltBody = utf8_decode($mailMessage);
 
@@ -112,7 +112,7 @@ Encore une fois, bienvenue à bord !
 
 Le Parti Pirate";
 
-	$subject = mb_encode_mimeheader(utf8_decode($subject), "ISO-8859-1");
+	$subject = subjectEncode($subject);
 	$from = $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">";
 
 	if (sendMail($from, $transaction["tra_email"],

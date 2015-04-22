@@ -58,4 +58,20 @@ else {
 <link href="assets/css/style.css" rel="stylesheet">
 
 <link rel="shortcut icon" type="image/png" href="favicon.png" />
+
+<?php
+include_once("config/config.php");
+
+if (isset($config["server"]["line"]) && $config["server"]["line"]) { ?>
+<style>
+body:before {
+	content: "<?php echo $config["server"]["line"]; ?>";
+	color: red;
+	font-size: 30px;
+	margin-bottom: -33px;
+}
+</style>
+<?php
+}?>
+
 </head>

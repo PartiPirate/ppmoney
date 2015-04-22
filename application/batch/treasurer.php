@@ -36,7 +36,7 @@ $toDate = new DateTime();
 $toDate = $toDate->sub(new DateInterval("P1D"));
 $toDate = $toDate->format("Y-m-d");
 
-echo "Traitement transaction du " . $fromDate . " au " . $toDate;
+echo "Treasurer batch from " . $fromDate . " to " . $toDate;
 
 $transactionBo = TransactionBo::newInstance(openConnection());
 $transactions = $transactionBo->getTransactions(array("tra_status" => "accepted", "tra_confirmed" => "1", "tra_from_date" => $fromDate, "tra_to_date" => $toDate));
@@ -94,9 +94,10 @@ $mail->addAddress("afpp@partipirate.org");
 $mail->addAddress("tresorier@partipirate.org");
 
 $subject = "[PartiPirate] Fichier Trésorier CB du $fromDate au $toDate";
+
 $mailMessage = "Voilà, voilà";
 
-$mail->Subject = mb_encode_mimeheader(utf8_decode($subject), "ISO-8859-1");
+$mail->Subject = subjectEncode($subject);
 $mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
 $mail->AltBody = utf8_decode($mailMessage);
 $mail->addAttachment("treasurer.csv", "cb_$fromDate" . "_$toDate.csv");
@@ -127,5 +128,7 @@ if (sendMail($from, "afpp@partipirate.org, tresorier@partipirate.org",
 //}
 
 unlink("treasurer.csv");
+
+echo "Batch end";
 
 ?>
