@@ -161,11 +161,20 @@ function sendMail($from, $to, $subject, $content, $path = '', $cc = '', $bcc = '
 }
 
 function subjectEncode($subject) {
+//	echo "subjectEncode($subject)\n";
+	global $config;
+
 	if (isset($config["server"]["line"]) && $config["server"]["line"]) {
+//		echo "Not a prod line\n";
 		$subject = "[".$config["server"]["line"]."]" . $subject;
+//		echo "\ttransform into => $subject \n";
 	}
 
-	return mb_encode_mimeheader(utf8_decode($subject), "ISO-8859-1");
+	$subject = mb_encode_mimeheader(utf8_decode($subject), "ISO-8859-1");
+
+//	echo "end subjectEncode($subject)\n";
+
+	return $subject;
 }
 
 ?>
