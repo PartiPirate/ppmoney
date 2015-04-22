@@ -33,28 +33,28 @@ $connection = openConnection();
 $transactionBo = TransactionBo::newInstance($connection);
 
 $email = $_REQUEST["email"] ? $_REQUEST["email"] : $_REQUEST["renewEmail"];
-$amount = $_REQUEST["donation"];
-$amount += (isset($_REQUEST["costRadio"]) ? $_REQUEST["costRadio"] : 0);
-$amount += (isset($_REQUEST["localDonation"]) ? $_REQUEST["localDonation"] : 0);
-$amount += (isset($_REQUEST["projectDonation"]) ? $_REQUEST["projectDonation"] : 0);
-$amount += (isset($_REQUEST["projectAdditionalDonation"]) ? $_REQUEST["projectAdditionalDonation"] : 0);
+$amount = str_replace(",", ".", $_REQUEST["donation"]);
+$amount += (isset($_REQUEST["costRadio"]) ? str_replace(",", ".", $_REQUEST["costRadio"]) : 0);
+$amount += (isset($_REQUEST["localDonation"]) ? str_replace(",", ".", $_REQUEST["localDonation"]) : 0);
+$amount += (isset($_REQUEST["projectDonation"]) ? str_replace(",", ".", $_REQUEST["projectDonation"]) : 0);
+$amount += (isset($_REQUEST["projectAdditionalDonation"]) ? str_replace(",", ".", $_REQUEST["projectAdditionalDonation"]) : 0);
 
 $dateTime = date("c");
 
 $purpose = array();
 
 if (isset($_REQUEST["donation"])) {
-	$purpose["donation"] = $_REQUEST["donation"];
+	$purpose["donation"] = str_replace(",", ".", $_REQUEST["donation"]);
 }
 if (isset($_REQUEST["costRadio"])) {
-	$purpose["join"] = $_REQUEST["costRadio"];
+	$purpose["join"] = str_replace(",", ".", $_REQUEST["costRadio"]);
 }
 if (isset($_REQUEST["localSection"]) && $_REQUEST["localSection"]) {
 	$purpose["local"] = array();
 	$purpose["local"]["section"] = $_REQUEST["localSection"];
 
 	if (isset($_REQUEST["localDonation"]) && $_REQUEST["localDonation"]) {
-		$purpose["local"]["donation"] = $_REQUEST["localDonation"];
+		$purpose["local"]["donation"] = str_replace(",", ".", $_REQUEST["localDonation"]);
 	}
 }
 if (isset($_REQUEST["forum"]) && isset($_REQUEST["pseudo"]) && $_REQUEST["pseudo"]) {
@@ -73,8 +73,8 @@ if (isset($_REQUEST["projectId"]) && $_REQUEST["projectId"]) {
 	$project = $projectBo->getProject($_REQUEST["projectId"]);
 
 	$purpose["project"]["code"] = $project["pro_code"];
-	$purpose["project"]["donation"] = $_REQUEST["projectDonation"];
-	$purpose["project"]["additionalDonation"] = $_REQUEST["projectAdditionalDonation"];
+	$purpose["project"]["donation"] = str_replace(",", ".", $_REQUEST["projectDonation"]);
+	$purpose["project"]["additionalDonation"] = str_replace(",", ".", $_REQUEST["projectAdditionalDonation"]);
 }
 
 $transaction = array();
