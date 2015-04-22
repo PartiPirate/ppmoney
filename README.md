@@ -18,6 +18,8 @@ Interface de don/adhésion/financement participatif du Parti Pirate
 
     $config["server"] = array();
     $config["server"]["base"] = "http://don.partipirate.org/";
+    // The server line, ex : dev, beta - Leave it empty for production
+    $config["server"]["line"] = "dev";
 
     ?>
 
