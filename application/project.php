@@ -53,7 +53,7 @@ include_once("header.php");
 ?>
 <body>
 
-<nav><img src="assets/img/logo_pp.png" /></nav>
+<nav><a href="https://www.partipirate.fr/" target="_blank"><img src="assets/img/logo_pp.png" /></a></nav>
 
 <main class="clearfix">
 <form id="form" action="do_donate.php">
