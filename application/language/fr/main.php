@@ -144,6 +144,9 @@ $lang["pp_money_i_join_button"] = "J'adhère";
 $lang["pp_money_i_donate_button"] = "Je donne";
 $lang["pp_money_i_project_button"] = "Je participe";
 
+$lang["error_title"] = "Erreur";
+$lang["error_donation_too_high"] = "Les versements supérieurs à 7500€ à des partis politiques sont interdits.";
+
 $lang["pp_money_gauge_goal"] = "Objectif";
 $lang["pp_money_gauge_amounts"] = "{amount}&euro; collectés sur {amount_goal}&euro;";
 $lang["pp_money_gauge_donation"] = "don";

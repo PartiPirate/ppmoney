@@ -97,10 +97,15 @@ function isCompleteFormHandler(event) {
 	}
 
 	if (isOk) {
-		$.post("do_setPaymentForm.php", $("#form").serialize(), function(data) {
+		try {
+			var jsonData = $.parseJSON(data);
+			alert(jsonData.message);
+		}
+		catch(error) {
+			// Il n'y a pas d'erreur
 			$("body").append($(data));
 			$("#payboxForm").submit();
-		}, "html");
+		}
 	}
 }
 

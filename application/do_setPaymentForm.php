@@ -96,6 +96,14 @@ $transactionBo->save($transaction);
 $amount *= 100;
 $reference = $transaction["tra_reference"];
 
+if ((isset($purpose["donation"]) || isset($purpose["join"]) || isset($purpose["project"])) && $amount > 750000) {
+	include_once("language/language.php");
+	$data = array("error" => true, "title" => lang("error_title"), "message" => lang("error_donation_too_high"));
+
+	echo json_encode($data);
+	exit();
+}
+
 include ("engine/utils/paybox.php");
 
 ?>
