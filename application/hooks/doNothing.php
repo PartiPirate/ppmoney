@@ -24,5 +24,5 @@ if (!$transaction) exit();
 
 $purpose = json_decode($transaction["tra_purpose"], true);
 
-echo "Hook qui ne fait rien<br/>";
+//echo "Hook qui ne fait rien<br/>";
 ?>

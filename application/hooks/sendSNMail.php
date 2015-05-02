@@ -87,7 +87,7 @@ if (isset($purpose["join"])) {
 	$mail->AltBody = utf8_decode($mailMessage);
 
 	if (mail("secretaires-nationaux@lists.partipirate.org", $mail->Subject, $mail->AltBody, $headers)) {
-		echo "Send SN Mails<br/>";
+//		echo "Send SN Mails<br/>";
 	}
 
 
@@ -121,7 +121,7 @@ Le Parti Pirate";
 		"",
 		"",
 		"")) {
-		echo "Send member mail<br/>";
+//		echo "Send member mail<br/>";
 	}
 
 }
