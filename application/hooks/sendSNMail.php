@@ -26,6 +26,8 @@ include_once("config/mail.php");
 
 $purpose = json_decode($transaction["tra_purpose"], true);
 
+print_r($purpose);
+
 if (isset($purpose["join"])) {
 
 	$mail = getMailInstance();
@@ -86,9 +88,17 @@ if (isset($purpose["join"])) {
 	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
 	$mail->AltBody = utf8_decode($mailMessage);
 
-	if (mail("secretaires-nationaux@lists.partipirate.org", $mail->Subject, $mail->AltBody, $headers)) {
-//		echo "Send SN Mails<br/>";
+	if (sendMail($config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">", "secretaires-nationaux@lists.partipirate.org",
+		$mail->Subject,
+		$mail->AltBody,
+		"",
+		"dvi@partipirate.org",
+		"")) {
 	}
+
+//	if (mail("secretaires-nationaux@lists.partipirate.org", $mail->Subject, $mail->AltBody, $headers)) {
+//		echo "Send SN Mails<br/>";
+//	}
 
 
 //	if ($mail->send()) {
