@@ -123,25 +123,32 @@ class GaugeBo {
 		$gauge["gau_number_of_transactions"] = count($gauge["transactions"]);
 		$gauge["gau_amount"] = 0;
 
-		$parts = explode(">", $gauge["gau_amount_path"]);
+		$megaparts = explode(",", $gauge["gau_amount_path"]);
+		foreach($megaparts as $megapart) {
+			$parts = explode(">", $megapart);
 
-		foreach($gauge["transactions"] as $transaction) {
-			$purpose = json_decode($transaction["tra_purpose"], true);
-			$amount = $purpose;
-			foreach($parts as $part) {
-				if (isset($amount[trim($part)])) {
-					$amount = $amount[trim($part)];
+			foreach($gauge["transactions"] as $transaction) {
+				$purpose = json_decode($transaction["tra_purpose"], true);
+				$amount = $purpose;
+				foreach($parts as $part) {
+					if (isset($amount[trim($part)])) {
+						$amount = $amount[trim($part)];
+					}
 				}
-			}
-			if (!$amount || !is_numeric($amount)) {
-				$amount = $transaction["tra_amount"];
-			}
+				if (!$amount || !is_numeric($amount)) {
+					$amount = $transaction["tra_amount"];
+				}
 
-			$gauge["gau_amount"] += $amount;
+				$gauge["gau_amount"] += $amount;
+			}
 		}
 
 		if (isset($gauge["gau_amount_goal"]) && $gauge["gau_amount_goal"]) {
 			$gauge["gau_percent_goal"] = $gauge["gau_amount"] * 100 / $gauge["gau_amount_goal"];
+		}
+
+		if (count($gauge["transactions"])) {
+			$gauge["gau_average_amount"] = $gauge["gau_amount"] / count($gauge["transactions"]);
 		}
 	}
 }

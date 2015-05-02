@@ -173,7 +173,7 @@ class TransactionBo {
 
 
 	function getGaugeTransactions(&$gauge) {
-		$args = array("tra_from_date" => $gauge["gau_from_date"]);
+		$args = array();
 		$args["tra_like_purpose"] = "%" .$gauge["gau_searched_purpose"]. "%";
 
 		$query = "	SELECT *
@@ -182,8 +182,17 @@ class TransactionBo {
 					WHERE
 						tra_status = 'accepted'
 					AND	tra_confirmed = 1
-					AND tra_date > :tra_from_date
 					AND tra_purpose LIKE :tra_like_purpose ";
+
+		if (isset($gauge["gau_from_date"])) {
+			$query .= " AND tra_date > :tra_from_date ";
+			$args["tra_from_date"] = $gauge["gau_from_date"];
+		}
+
+		if (isset($gauge["gau_to_date"])) {
+			$query .= " AND tra_date < :tra_to_date ";
+			$args["tra_to_date"] = $gauge["gau_to_date"];
+		}
 
 		$statement = $this->pdo->prepare($query);
 
