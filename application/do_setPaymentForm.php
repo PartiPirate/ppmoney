@@ -96,7 +96,7 @@ $transactionBo->save($transaction);
 $amount *= 100;
 $reference = $transaction["tra_reference"];
 
-if ((isset($purpose["donation"]) || isset($purpose["join"]) || isset($purpose["project"])) && $amount > 750000) {
+if ((isset($purpose["donation"]) || isset($purpose["join"]) || isset($purpose["project"] || isset($purpose["local"])) && $amount > 750000) {
 	include_once("language/language.php");
 	$data = array("error" => true, "title" => lang("error_title"), "message" => lang("error_donation_too_high"));
 
