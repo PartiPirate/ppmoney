@@ -26,8 +26,6 @@ include_once("config/mail.php");
 
 $purpose = json_decode($transaction["tra_purpose"], true);
 
-print_r($purpose);
-
 if (isset($purpose["join"])) {
 
 	$mail = getMailInstance();
