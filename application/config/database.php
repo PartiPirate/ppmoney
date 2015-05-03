@@ -19,10 +19,13 @@
 @include_once("config/config.php");
 @include_once("config/salt.php");
 
-function openConnection() {
+function openConnection($dbname = null) {
 	global $config;
+	if (!$dbname) {
+		$dbname = $config["database"]["database"];
+	}
 
-	$dns = 'mysql:host='.$config["database"]["host"].';dbname=' . $config["database"]["database"];
+	$dns = 'mysql:host='.$config["database"]["host"].';dbname=' . $dbname;
 
 	if (isset($config["database"]["port"])) {
 		$dns .= ";port=" . $config["database"]["port"];

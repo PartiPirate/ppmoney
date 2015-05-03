@@ -21,6 +21,9 @@ Interface de don/adhésion/financement participatif du Parti Pirate
     // The server line, ex : dev, beta - Leave it empty for production
     $config["server"]["line"] = "dev";
 
+    $config["galette"] = array();
+    $config["galette"]["database"] = "galette_test";
+
     ?>
 
 # conf/mail.config.php

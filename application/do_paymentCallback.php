@@ -47,7 +47,9 @@ if ($computedCode != $code) {
 $payboxIp = $_SERVER["HTTP_X_REAL_IP"];
 $allowed = false;
 
-$transactionBo = TransactionBo::newInstance(openConnection());
+// Open the connection, may be used in the hooks
+$connection = openConnection();
+$transactionBo = TransactionBo::newInstance($connection);
 
 $transaction = $transactionBo->getTransactionByReference($reference, $amount / 100);
 
