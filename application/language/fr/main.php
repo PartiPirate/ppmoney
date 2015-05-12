@@ -152,8 +152,10 @@ $lang["pp_money_gauge_amounts"] = "{amount}&euro; collectés sur {amount_goal}&e
 $lang["pp_money_gauge_donation"] = "don";
 $lang["pp_money_gauge_donations"] = "dons";
 
-$lang["pp_money_common_closed"] = "Fini";
+$lang["pp_money_common_finished"] = "Fini";
 $lang["pp_money_common_open"] = "En cours";
 $lang["pp_money_common_canceled"] = "Annulé";
+
+$lang["pp_back_title"] = "PP Money Backoffice";
 
 ?>

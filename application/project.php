@@ -101,6 +101,20 @@ include_once("header.php");
 		<p><?php echo lang("pp_money_reducing_taxes_content"); ?></p>
 	</div>
 	<?php }?>
+
+		<div class="text-center">
+		<?php
+			$url = $config["server"]["base"];
+			$url .= substr($_SERVER["REQUEST_URI"], 1);
+
+		    $qrPath = generateQR($url, 'project_'.$projectId);
+
+//		    echo $url;
+
+			// displaying
+    		echo '<img src="'.$qrPath.'" />';
+		?>
+	</div>
 </div>
 
 <div class="explanation" id="projectDiv">

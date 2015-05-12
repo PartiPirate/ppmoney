@@ -16,12 +16,29 @@
     You should have received a copy of the GNU General Public License
     along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 */
-?>
-<script src="<?php echo isset($relativeDirectory) ? $relativeDirectory : ''; ?>assets/js/jquery-1.11.1.min.js"></script>
-<?php
-if (is_file("assets/js/perpage/" . $page . ".js")) {
-	echo "<script src=\"assets/js/perpage/" . $page . ".js\"></script>\n";
+$relativeDirectory = "../";
+set_include_path(get_include_path() . PATH_SEPARATOR . $relativeDirectory);
+
+session_start();
+
+if (!isset($_SESSION["login"])) {
+	header("Location: index.php");
+	exit();
 }
+
+include_once("config/database.php");
+require_once("engine/bo/ProjectBo.php");
+
+$connection = openConnection();
+
+$projectBo = ProjectBo::newInstance($connection);
+
+$project = array();
+
+$project["pro_id"] = $_REQUEST["id"];
+$project["pro_status"] = $_REQUEST["status"];
+
+$projectBo->update($project);
+
+header("Location: projects.php");
 ?>
-</body>
-</html>

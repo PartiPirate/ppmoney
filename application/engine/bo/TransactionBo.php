@@ -171,6 +171,51 @@ class TransactionBo {
 		return array();
 	}
 
+	function getStats($filters) {
+		$args = array();
+
+		$query = "	SELECT
+						DATE_FORMAT(tra_date, '%Y-%m-%d') AS tra_transaction_date,
+						COUNT(*) AS tra_number,
+						SUM(IF(LOCATE('join', tra_purpose) > 0, 1, 0)) AS tra_number_adhesions,
+						SUM(tra_amount) AS tra_amounts,
+						AVG(tra_amount) AS tra_avg_amount,
+						MIN(tra_amount) AS tra_min_amount,
+						MAX(tra_amount) AS tra_max_amount
+					FROM  `transactions`
+					WHERE  `tra_status` =  'accepted'
+					AND tra_confirmed =1 ";
+
+		if (isset($filters["tra_from_date"])) {
+			$query .= " AND DATE_FORMAT(tra_date, '%Y-%m-%d') >=  :tra_from_date ";
+			$args["tra_from_date"] = $filters["tra_from_date"];
+		}
+
+		if (isset($filters["tra_to_date"])) {
+			$query .= " AND DATE_FORMAT(tra_date, '%Y-%m-%d') <=  :tra_to_date ";
+			$args["tra_to_date"] = $filters["tra_to_date"];
+		}
+
+		$query .= "	GROUP BY tra_transaction_date
+					WITH ROLLUP		";
+
+		$statement = $this->pdo->prepare($query);
+
+//		echo showQuery($query, $args);
+
+		try {
+			$statement->execute($args);
+			$results = $statement->fetchAll();
+
+			return $results;
+		}
+		catch(Exception $e){
+			$gauge["transactions"] = array();
+			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+		return array();
+	}
 
 	function getGaugeTransactions(&$gauge) {
 		$args = array();

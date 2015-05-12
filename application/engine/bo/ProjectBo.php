@@ -28,15 +28,15 @@ class ProjectBo {
 		return new ProjectBo($pdo);
 	}
 
-	function create(&$transaction) {
-		$query = "	INSERT INTO transactions () VALUES ()	";
+	function create(&$project) {
+		$query = "	INSERT INTO projects () VALUES ()	";
 
 		$statement = $this->pdo->prepare($query);
 		//		echo showQuery($query, $args);
 
 		try {
 			$statement->execute();
-			$transaction["tra_id"] = $this->pdo->lastInsertId();
+			$project["pro_id"] = $this->pdo->lastInsertId();
 
 			return true;
 		}
@@ -47,37 +47,84 @@ class ProjectBo {
 		return false;
 	}
 
-	function update($transaction) {
-		$query = "	UPDATE transactions SET ";
+	function update($project) {
+		$query = "	UPDATE projects SET ";
 
 		$separator = "";
-		foreach($transaction as $field => $value) {
+		foreach($project as $field => $value) {
 			$query .= $separator;
 			$query .= $field . " = :". $field;
 			$separator = ", ";
 		}
 
-		$query .= "	WHERE tra_id = :tra_id ";
+		$query .= "	WHERE pro_id = :pro_id ";
 
-//		echo showQuery($query, $transaction);
+//		echo showQuery($query, $project);
 
 		$statement = $this->pdo->prepare($query);
-		$statement->execute($transaction);
+		$statement->execute($project);
 	}
 
-	function save(&$transaction) {
-		if (!isset($transaction["tra_id"]) || !$transaction["tra_id"]) {
-			$this->create($transaction);
+	function detachProjectCounterparts($project) {
+		$args = array("cpa_project_id" => $project["pro_id"]);
+		$projects = array();
 
-			// create reference
-			$transaction["tra_reference"] = "" . $transaction["tra_id"];
-			while(strlen($transaction["tra_reference"]) < 8) {
-				$transaction["tra_reference"] = "0" . $transaction["tra_reference"];
+		$query = "	UPDATE
+						counter_parties
+					SET
+						cpa_project_id = 0
+					WHERE
+						cpa_project_id = :cpa_project_id";
+
+		$statement = $this->pdo->prepare($query);
+		//		echo showQuery($query, $args);
+		$statement->execute($args);
+	}
+
+	function saveCounterpart($counterpart) {
+		if (isset($counterpart["cpa_id"]) && $counterpart["cpa_id"]) {
+			$query = "	UPDATE
+							counter_parties
+						SET
+							cpa_project_id = :cpa_project_id,
+							cpa_amount = :cpa_amount,
+							cpa_content = :cpa_content
+						WHERE
+							cpa_id = :cpa_id";
+		}
+		else {
+			if (isset($counterpart["cpa_id"])) {
+				unset($counterpart["cpa_id"]);
 			}
-			$transaction["tra_reference"] = "PP" . $transaction["tra_reference"];
+			$query = "	INSERT INTO
+							counter_parties
+							(cpa_project_id, cpa_amount, cpa_content)
+						VALUES
+							(:cpa_project_id, :cpa_amount, :cpa_content)";
 		}
 
-		$this->update($transaction);
+		$statement = $this->pdo->prepare($query);
+//		echo showQuery($query, $counterpart);
+		$statement->execute($counterpart);
+	}
+
+	function save(&$project) {
+		$counterparties = $project["counterparties"];
+		unset($project["counterparties"]);
+
+		if (!isset($project["pro_id"]) || !$project["pro_id"]) {
+			$this->create($project);
+		}
+
+		$this->update($project);
+
+		$this->detachProjectCounterparts($project);
+
+		// Update the counterparts
+		foreach($counterparties as $counterpart) {
+			$counterpart["cpa_project_id"] = $project["pro_id"];
+			$this->saveCounterpart($counterpart);
+		}
 	}
 
 	function getProjects($filters) {

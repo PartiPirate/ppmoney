@@ -67,11 +67,11 @@ include_once("header.php");
 						case "open":
 							echo lang("pp_money_common_open");
 							break;
-						case "closed":
-							echo lang("pp_money_common_closed");
+						case "finished":
+							echo lang("pp_money_common_finished");
 							break;
-						case "cancel":
-							echo lang("pp_money_common_cancel");
+						case "canceled":
+							echo lang("pp_money_common_canceled");
 							break;
 					}?>
 		</h4>

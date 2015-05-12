@@ -364,3 +364,11 @@ ul li input[type=radio] {
 .project h2, .project h3, .project h4 {
     font-family: 'Ubuntu Bold', Ubuntu;
 }
+
+label span {
+	vertical-align: top;
+	display: inline-block;
+	width: 200px;
+	text-align: right;
+	margin-right: 10px;
+}

@@ -16,12 +16,9 @@
     You should have received a copy of the GNU General Public License
     along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+session_start();
+session_destroy();
+
+header("Location: index.php");
 ?>
-<script src="<?php echo isset($relativeDirectory) ? $relativeDirectory : ''; ?>assets/js/jquery-1.11.1.min.js"></script>
-<?php
-if (is_file("assets/js/perpage/" . $page . ".js")) {
-	echo "<script src=\"assets/js/perpage/" . $page . ".js\"></script>\n";
-}
-?>
-</body>
-</html>

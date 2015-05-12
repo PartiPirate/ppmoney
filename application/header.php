@@ -53,14 +53,30 @@ else {
 ?></title>
 
 <!-- Bootstrap -->
-<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="assets/css/fonts.css" rel="stylesheet">
-<link href="assets/css/style.css" rel="stylesheet">
+<link href="<?php echo isset($relativeDirectory) ? $relativeDirectory : ''; ?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo isset($relativeDirectory) ? $relativeDirectory : ''; ?>assets/css/fonts.css" rel="stylesheet">
+<link href="<?php echo isset($relativeDirectory) ? $relativeDirectory : ''; ?>assets/css/style.css" rel="stylesheet">
 
 <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
 <?php
 include_once("config/config.php");
+
+function generateQR($content, $key) {
+	include_once 'engine/qr/qrlib.php';
+
+	// we need to generate filename somehow,
+	// with md5 or with database ID used to obtains $codeContents...
+	$fileName = $key .'_' . md5($content).'.png';
+	$qrPath = "cache/" . $fileName;
+
+	// generating
+	if (!file_exists($qrPath)) {
+		QRcode::png($content, $qrPath, QR_ECLEVEL_H, 6, 0);
+	}
+
+	return $qrPath;
+}
 
 if (isset($config["server"]["line"]) && $config["server"]["line"]) { ?>
 <style>

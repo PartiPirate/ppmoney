@@ -17,7 +17,11 @@
     along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-if (isset($lang)) {
+if (!isset($relativeDirectory)) {
+	$relativeDirectory = "";
+}
+
+if (!isset($lang)) {
     $lang = array();
 }
 
@@ -37,13 +41,14 @@ function getLanguage() {
 
 function isLanguageKey($key, $language = null) {
 	global $lang;
+	global $relativeDirectory;
 
 	if (!$language) {
 		$language = getLanguage();
 	}
 
 	if (!count($lang)) {
-		$directoryHandler = dir("language/" . $language);
+		$directoryHandler = dir($relativeDirectory . "language/" . $language);
 		while(($fileEntry = $directoryHandler->read()) !== false) {
 			if($fileEntry != '.' && $fileEntry != '..' && strpos($fileEntry, ".php")) {
 				include_once("language/" . $language . "/" . $fileEntry);

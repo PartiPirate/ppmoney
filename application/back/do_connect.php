@@ -16,12 +16,16 @@
     You should have received a copy of the GNU General Public License
     along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 */
-?>
-<script src="<?php echo isset($relativeDirectory) ? $relativeDirectory : ''; ?>assets/js/jquery-1.11.1.min.js"></script>
-<?php
-if (is_file("assets/js/perpage/" . $page . ".js")) {
-	echo "<script src=\"assets/js/perpage/" . $page . ".js\"></script>\n";
+
+session_start();
+
+$login = $_REQUEST["login"];
+$password = $_REQUEST["password"];
+
+// TODO pout your authentication code here
+if ($password == "1234") {
+	$_SESSION["login"] = $login;
 }
+
+header("Location: index.php");
 ?>
-</body>
-</html>
