@@ -98,7 +98,7 @@ Cette adhésion est valide de date à date.
 Conformément à l’article 34 de la loi N°78-17 du 6 janvier 1978 dite « Informatique et Libertés », vous disposez d’un droit d’accès, de modification, de rectification, de suppression des données qui vous concernent sur simple demande à <a href=\"mailto:secretaires-nationaux@lists.partipirate.org\">secretaires-nationaux@lists.partipirate.org</a>. Le Parti Pirate est une association à but politique régie par la loi du 1er juillet 1901. L’Association de Financement du Parti Pirate, déclarée le 21/04/11 a été agréée le 18/07/11.
 Voir cette page pour <a href=\"https://www.partipirate.org/Mentions-legales\">notre politique informatique & Liberté</a>, de confidentialité des données communiquées avant d'adhérer.
 
-<strong>Vous devez indiquer votre identité véritable ; donner une fausse identité constituerait une fraude fiscale.</strong>
+<strong>Vous devez indiquer votre véritable identité car se faire établir et utiliser un reçu-don sous une fausse identité constituerait une fraude fiscale.</strong>
 
 Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.";
 $lang["pp_money_to_know_content2"] = "<strong>Pour l'année 2015, les cotisations et les dons au Parti Pirate ne donneront pas droit à une déduction fiscale.</strong>
