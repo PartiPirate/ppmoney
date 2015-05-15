@@ -28,12 +28,33 @@ class GaletteBo {
 		return new GaletteBo($pdo);
 	}
 
-	function getMemberByMail($email) {
+	function getMembers($filters = null) {
+
+		$args = array();
+
 		$query = "	SELECT *
-					FROM galette_adherents
-					WHERE 1 = 1
-					AND email_adh = :email_adh";
-		$args = array("email_adh" => $email);
+					FROM galette_adherents ga \n";
+
+		if ($filters && isset($filters["adh_group_names"])) {
+			foreach($filters["adh_group_names"] as $index => $groupName) {
+				$query .= "	JOIN galette_groups_members ggm$index ON ggm$index.id_adh = ga.id_adh \n";
+				$query .= "	JOIN galette_groups gg$index ON gg$index.id_group = ggm$index.id_group \n";
+			}
+		}
+
+		$query .= "	WHERE 1 = 1 \n";
+
+		if ($filters && isset($filters["email_adh"])) {
+			$query .= "	AND ga.email_adh = :email_adh \n";
+			$args["email_adh"] = $filters["email_adh"];
+		}
+
+		if ($filters && isset($filters["adh_group_names"])) {
+			foreach($filters["adh_group_names"] as $index => $groupName) {
+				$query .= "	AND gg$index.group_name =  :group_name_$index \n";
+				$args["group_name_$index"] = $groupName;
+			}
+		}
 
 		$statement = $this->pdo->prepare($query);
 
@@ -43,20 +64,30 @@ class GaletteBo {
 			$statement->execute($args);
 			$results = $statement->fetchAll();
 
-			if (count($results)) {
-				$member = $results[0];
-
+			foreach($results as $key => $member) {
 				foreach($member as $field => $value) {
 					if (is_numeric($field)) {
-						unset($member[$field]);
+						unset($results[$key][$field]);
 					}
 				}
-
-				return $member;
 			}
+
+			return $results;
 		}
 		catch(Exception $e){
 			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+		return array();
+	}
+
+	function getMemberByMail($email) {
+		$results = $this->getMembers(array("email_adh" => $email));
+
+		if (count($results)) {
+			$member = $results[0];
+
+			return $member;
 		}
 
 		return null;
@@ -73,6 +104,7 @@ class GaletteBo {
 					AND group_name = :group_name";
 		$args = array("group_name" => $groupName);
 
+//		echo showQuery($query, $args);
 		$statement = $this->pdo->prepare($query);
 
 		try {

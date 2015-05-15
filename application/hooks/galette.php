@@ -26,18 +26,23 @@ include_once("engine/bo/GaletteBo.php");
 
 $purpose = json_decode($transaction["tra_purpose"], true);
 
-$galetteConnection = openConnection($config["galette"]["database"]);
+//print_r($purpose);
+
+$galetteDatabase = isset($config["galette"]["database"]) ? $config["galette"]["database"] : $config["database"]["database"];
+$galetteConnection = openConnection($galetteDatabase);
 
 $galetteBo = GaletteBo::newInstance($galetteConnection);
 
 $member = $galetteBo->getMemberByMail($transaction["tra_email"]);
 
 if (isset($purpose["join"])) {
-	$status = $galetteBo->getStatusByLabel("adherent");
+	$status = $galetteBo->getStatusByLabel("Active member");
 }
 else {
-	$status = $galetteBo->getStatusByLabel("donateur");
+	$status = $galetteBo->getStatusByLabel("Non-member");
 }
+
+//print_r($status);
 
 if ($member == null) {
 	$member = array();
@@ -57,16 +62,18 @@ if (isset($purpose["join"])) {
 }
 
 $member["email_adh"] = $transaction["tra_email"];
-$member["nom_adh"] = $transaction["tra_lastname"];
-$member["prenom_adh"] = $transaction["tra_firstname"];
-$member["adresse_adh"] = $transaction["tra_address"];
+$member["nom_adh"] = utf8_decode($transaction["tra_lastname"]);
+$member["prenom_adh"] = utf8_decode($transaction["tra_firstname"]);
+$member["adresse_adh"] = utf8_decode($transaction["tra_address"]);
 $member["cp_adh"] = $transaction["tra_zipcode"];
-$member["ville_adh"] = $transaction["tra_city"];
-$member["pays_adh"] = $transaction["tra_country"];
+$member["ville_adh"] = utf8_decode($transaction["tra_city"]);
+$member["pays_adh"] = utf8_decode($transaction["tra_country"]);
 $member["tel_adh"] = $transaction["tra_telephone"];
 $member["date_modif_adh"] = date("c");
 
 $galetteBo->saveMember($member);
+
+//echo "Member saved";
 
 // insert transaction
 $galetteTransaction = array("id_adh" => $member["id_adh"]);
@@ -76,81 +83,91 @@ $galetteTransaction["trans_desc"] = "CB_" . $transaction["tra_reference"];
 
 $galetteBo->insertTransaction($galetteTransaction);
 
-// Insert in SL
-
-if (isset($purpose["local"]) && isset($purpose["local"]["section"])) {
-	$sectionName = $purpose["local"]["section"];
-
-	$section = $galetteBo->getSectionByName($sectionName);
-
-	$memberInGroup = array();
-	$memberInGroup["id_adh"] = $member["id_adh"];
-	$memberInGroup["id_group"] = $section["id_group"];
-	$galetteBo->insertMemberInGroup($memberInGroup);
-
-	// insert section cotiz
-	$typeCotisation = $galetteBo->getTypeCotisationByLabel("section_locale");
-	$cotisation = array();
-	$cotisation["id_type_cotis"] = $typeCotisation["id_type_cotis"];
-	$cotisation["id_adh"] = $member["id_adh"];
-	$cotisation["montant_cotis"] = $purpose["local"]["donation"];
-	$cotisation["date_enreg"] = $transaction["tra_date"];
-	$cotisation["trans_id"] = $galetteTransaction["trans_id"];
-	$cotisation["type_paiement_cotis"] = 1;
-	$cotisation["info_cotis"] = "";
-	$cotisation["date_debut_cotis"] = $member["date_modif_adh"];
-	$cotisation["date_fin_cotis"] = $echeance;
-
-	$galetteBo->insertCotisation($cotisation);
-}
-
 if (isset($purpose["donation"]) && $purpose["donation"] && $purpose["donation"] != 0) {
-	$typeCotisation = $galetteBo->getTypeCotisationByLabel("don");
+	$typeCotisation = $galetteBo->getTypeCotisationByLabel("donation in money");
 	$cotisation = array();
 	$cotisation["id_type_cotis"] = $typeCotisation["id_type_cotis"];
 	$cotisation["id_adh"] = $member["id_adh"];
 	$cotisation["montant_cotis"] = $purpose["donation"];
 	$cotisation["date_enreg"] = $transaction["tra_date"];
 	$cotisation["trans_id"] = $galetteTransaction["trans_id"];
-	$cotisation["type_paiement_cotis"] = 1;
+	$cotisation["type_paiement_cotis"] = 2;
 	$cotisation["info_cotis"] = "";
 	$cotisation["date_debut_cotis"] = $member["date_modif_adh"];
 	$cotisation["date_fin_cotis"] = '';
 
 	$galetteBo->insertCotisation($cotisation);
+
+//	echo "Donation saved";
 }
 
 if (isset($purpose["join"]) && $purpose["join"] && $purpose["join"] != 0) {
-	$typeCotisation = $galetteBo->getTypeCotisationByLabel("cotisation");
+	$typeCotisation = $galetteBo->getTypeCotisationByLabel("annual fee");
 	$cotisation = array();
 	$cotisation["id_type_cotis"] = $typeCotisation["id_type_cotis"];
 	$cotisation["id_adh"] = $member["id_adh"];
 	$cotisation["montant_cotis"] = $purpose["join"];
 	$cotisation["date_enreg"] = $transaction["tra_date"];
 	$cotisation["trans_id"] = $galetteTransaction["trans_id"];
-	$cotisation["type_paiement_cotis"] = 1;
+	$cotisation["type_paiement_cotis"] = 2;
 	$cotisation["info_cotis"] = "";
 	$cotisation["date_debut_cotis"] = $member["date_modif_adh"];
 	$cotisation["date_fin_cotis"] = $echeance;
 
 	$galetteBo->insertCotisation($cotisation);
+
+//	echo "Cotisation saved";
+
+	// Insert in SL
+	if (isset($purpose["local"]) && isset($purpose["local"]["section"])) {
+		$sectionName = utf8_decode($purpose["local"]["section"]);
+
+		$section = $galetteBo->getSectionByName($sectionName);
+
+		// insert section cotiz
+		$typeCotisation = $galetteBo->getTypeCotisationByLabel("annual fee");
+		$cotisation = array();
+		$cotisation["id_type_cotis"] = $typeCotisation["id_type_cotis"];
+		$cotisation["id_adh"] = $member["id_adh"];
+		$cotisation["montant_cotis"] = $purpose["local"]["donation"];
+		$cotisation["date_enreg"] = $transaction["tra_date"];
+		$cotisation["trans_id"] = $galetteTransaction["trans_id"];
+		$cotisation["type_paiement_cotis"] = 2;
+		$cotisation["info_cotis"] = $sectionName;
+		$cotisation["date_debut_cotis"] = $member["date_modif_adh"];
+		$cotisation["date_fin_cotis"] = $echeance;
+
+		$galetteBo->insertCotisation($cotisation);
+
+//		echo "Locale Cotisation saved";
+	}
+	else {
+		$section = $galetteBo->getSectionByName("Sans section");
+	}
+
+	$memberInGroup = array();
+	$memberInGroup["id_adh"] = $member["id_adh"];
+	$memberInGroup["id_group"] = $section["id_group"];
+	$galetteBo->insertMemberInGroup($memberInGroup);
 }
 
 if (isset($purpose["project"]) && $purpose["project"]) {
-	$typeCotisation = $galetteBo->getTypeCotisationByLabel("projet");
+	$typeCotisation = $galetteBo->getTypeCotisationByLabel("partnership");
 	$cotisation = array();
 	$cotisation["id_type_cotis"] = $typeCotisation["id_type_cotis"];
 	$cotisation["id_adh"] = $member["id_adh"];
 	$cotisation["montant_cotis"] = $purpose["project"]["donation"] + $purpose["project"]["additionalDonation"];
 	$cotisation["date_enreg"] = $transaction["tra_date"];
 	$cotisation["trans_id"] = $galetteTransaction["trans_id"];
-	$cotisation["type_paiement_cotis"] = 1;
-	$cotisation["info_cotis"] = "Projet : " . $purpose["project"]["code"] .
+	$cotisation["type_paiement_cotis"] = 2;
+	$cotisation["info_cotis"] = utf8_decode("Projet : " . $purpose["project"]["code"] .
 								", Don : " . $purpose["project"]["donation"] .
-								", Don supplémentaire : " . $purpose["project"]["additionalDonation"];
+								", Don supplémentaire : " . $purpose["project"]["additionalDonation"]);
 	$cotisation["date_debut_cotis"] = $member["date_modif_adh"];
 	$cotisation["date_fin_cotis"] = '';
 
 	$galetteBo->insertCotisation($cotisation);
+
+//	echo "Project Cotisation saved";
 }
 ?>
