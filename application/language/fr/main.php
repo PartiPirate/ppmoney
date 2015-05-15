@@ -109,7 +109,7 @@ Les données collectées seront utilisées pour le contrôle des comptes auprès
 
 Conformément à la loi N°78-17 du 6 janvier 1978 dite « Informatique et Libertés », vous disposez d’un droit d’accès, de modification, de rectification, de suppression des données qui vous concernent. Toute demande peut être adressée à <a href=\"mailto:secretaires-nationaux@lists.partipirate.org\">secretaires-nationaux@lists.partipirate.org</a>.
 
-<strong>Vous devez indiquer votre identité véritable ; donner une fausse identité constituerait une fraude fiscale.</strong>
+<strong>Vous devez indiquer votre véritable identité car se faire établir et utiliser un reçu-don sous une fausse identité constituerait une fraude fiscale.</strong>
 
 Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.";
 
