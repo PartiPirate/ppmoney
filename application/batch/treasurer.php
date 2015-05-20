@@ -29,12 +29,33 @@ include_once("config/mail.php");
 
 require_once("engine/bo/TransactionBo.php");
 
+$monthly = false;
 $fromDate = new DateTime();
-$fromDate = $fromDate->sub(new DateInterval("P7D"));
-$fromDate = $fromDate->format("Y-m-d");
-$toDate = new DateTime();
-$toDate = $toDate->sub(new DateInterval("P1D"));
-$toDate = $toDate->format("Y-m-d");
+
+if (isset($argv) && count($argv)) {
+	foreach($argv as $argIndex => $argValue) {
+		if ($argValue == "-m") {
+			$monthly = true;
+		}
+		else if ($argValue == "-d") {
+			$fromDate = new DateTime($argv[$argIndex + 1]);
+		}
+	}
+}
+
+if ($monthly) {
+	$fromDate->setDate($fromDate->format("Y"), $fromDate->format("m") - 1, 1);
+	$fromDate = $fromDate->format("Y-m");
+	$toDate = $fromDate . "-32";
+	$fromDate = $fromDate . "-00";
+}
+else {
+	$fromDate = $fromDate->sub(new DateInterval("P7D"));
+	$fromDate = $fromDate->format("Y-m-d");
+	$toDate = new DateTime();
+	$toDate = $toDate->sub(new DateInterval("P1D"));
+	$toDate = $toDate->format("Y-m-d");
+}
 
 echo "Treasurer batch from " . $fromDate . " to " . $toDate . "\n";
 
