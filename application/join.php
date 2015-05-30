@@ -60,8 +60,12 @@ include_once("header.php");
 
 		<div id="identityDiv">
 			<div id="lastnameInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_lastname"); ?> <span class="error">*</span><br/><input tabindex="100" type="text" name="lastname" /></div>
-			<div id="firstnameInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_firstname"); ?> <span class="error">*</span><br/><input tabindex="101" type="text" name="firstname" /></div>
-			<div id="emailInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_email"); ?> <span class="error">*</span><br/><input tabindex="102" type="text" name="email" /></div>
+			<div id="firstnameInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_firstname"); ?> <span class="error">*</span><br/><input tabindex="101" type="text" name="firstname" /></div>
+		</div>
+
+		<div id="identity2Div">
+			<div id="emailInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_email"); ?> <span class="error">*</span><br/><input tabindex="102" type="text" name="email" /></div>
+			<div id="pseudoInputDiv" class="pull-right"><?php echo lang("pp_money_forum_pseudo"); ?><br/><input tabindex="103" type="text" name="pseudo" /></div>
 		</div>
 
 		<div id="emailDiv">
@@ -90,18 +94,6 @@ include_once("header.php");
 			<div id="countryInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_country"); ?> <span class="error">*</span><br/><input tabindex="109" type="text" name="country" value="France" /></div>
 		</div>
 
-	</div>
-</div>
-
-<div class="explanation" id="forumDiv">
-	<h2><?php echo lang("pp_money_forum_title"); ?></h2>
-	<div>
-		<div id="toForumDiv" class="pull-left">
-			<label><input tabindex="300" class="pull-left" type="checkbox"
-							name="forum" id="forumCheckbox"
-							value="yes" /><p><?php echo lang("pp_money_forum_explanation"); ?></p></label>
-		</div>
-		<div id="pseudoDiv" class="pull-right"><?php echo lang("pp_money_forum_pseudo"); ?><br/><input tabindex="301" type="text" name="pseudo" /></div>
 	</div>
 </div>
 
@@ -150,11 +142,6 @@ include_once("header.php");
 <div class="explanation" id="otherInformationDiv">
 	<h2><?php echo lang("pp_money_other_information_title"); ?></h2>
 	<div>
-		<div id="subscriptionDiv">
-			<label><input tabindex="600" class="pull-left" type="checkbox"
-							name="subscription" id="subscriptionCheckbox" value="yes" /><p><?php echo lang("pp_money_other_information_subscription"); ?></p></label>
-			<br />
-		</div>
 	<?php echo lang("pp_money_other_information_content"); ?>
 	<textarea tabindex="650" rows="6" id="comment" name="comment"></textarea>
 	</div>

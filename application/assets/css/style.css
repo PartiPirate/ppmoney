@@ -201,21 +201,24 @@ ul li input[type=radio] {
 	width: 400px;
 }
 
-#pseudoDiv {
-    width: 210px;
-}
-
 #renewAddressDiv {
     height: 30px !important;
 }
 
-#identityDiv, #emailDiv, #address1Div, #address2Div {
+#identityDiv, #identity2Div, #emailDiv, #address1Div, #address2Div {
 	height: 55px !important;
 }
 
 #identityDiv #lastnameInputDiv, #identityDiv #lastnameInputDiv input,
+#identity2Div #emailInputDiv, #identity2Div #emailInputDiv input {
+    width: 300px;
+}
+
 #identityDiv #firstnameInputDiv, #identityDiv #firstnameInputDiv input,
-#identityDiv #emailInputDiv, #identityDiv #emailInputDiv input,
+#identity2Div #pseudoInputDiv, #identity2Div #pseudoInputDiv input {
+    width: 320px;
+}
+
 #emailDiv #emailInputDiv, #emailDiv #emailInputDiv input {
     width: 196px;
 }
@@ -252,7 +255,8 @@ ul li input[type=radio] {
     width: 220px;
 }
 
-#identityDiv #lastnameInputDiv, #identityDiv #firstnameInputDiv,
+#identityDiv #lastnameInputDiv,
+#identity2Div #emailInputDiv,
 #emailDiv #emailInputDiv,
 #address2Div #zipcodeInputDiv, #address2Div #cityInputDiv, #address2Div #countryInputDiv,
 #localSectionJoinDiv {
@@ -325,6 +329,10 @@ ul li input[type=radio] {
 
 #forumDiv input[type=checkbox], #iCertifyDiv input[type=checkbox], #otherInformationDiv input[type=checkbox] {
 	margin-top: 0;
+}
+
+#iCertifyDiv label span {
+	width: auto;
 }
 
 #localSectionGuide {

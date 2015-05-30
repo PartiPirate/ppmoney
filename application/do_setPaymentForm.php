@@ -57,6 +57,9 @@ if (isset($_REQUEST["localSection"]) && $_REQUEST["localSection"]) {
 		$purpose["local"]["donation"] = str_replace(",", ".", $_REQUEST["localDonation"]);
 	}
 }
+if (isset($_REQUEST["pseudo"]) && $_REQUEST["pseudo"]) {
+	$purpose["forumPseudo"] = $_REQUEST["pseudo"];
+}
 if (isset($_REQUEST["forum"]) && isset($_REQUEST["pseudo"]) && $_REQUEST["pseudo"]) {
 	$purpose["forumPseudo"] = $_REQUEST["pseudo"];
 }

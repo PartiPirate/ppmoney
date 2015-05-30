@@ -64,7 +64,7 @@ if (isset($purpose["join"])) {
 
 	if (isset($purpose["forumPseudo"])) {
 		$mailMessage .= "\n";
-		$mailMessage .= "Forum : " . $purpose["forumPseudo"] . "\n";
+		$mailMessage .= "Pseudo : " . $purpose["forumPseudo"] . "\n";
 	}
 
 	if (isset($purpose["reportSubscription"])) {
@@ -86,7 +86,8 @@ if (isset($purpose["join"])) {
 	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
 	$mail->AltBody = utf8_decode($mailMessage);
 
-	if (sendMail($config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">", "secretaires-nationaux@lists.partipirate.org",
+	if (sendMail($config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">",
+		"secretaires-nationaux@lists.partipirate.org",
 		$mail->Subject,
 		$mail->AltBody,
 		"",
