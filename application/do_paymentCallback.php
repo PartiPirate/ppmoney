@@ -16,6 +16,10 @@
     You should have received a copy of the GNU General Public License
     along with PPMoney.  If not, see <http://www.gnu.org/licenses/>.
 */
+// $filename = "test_" . mktime() . ".log";
+// $handle = fopen($filename, "w");
+// fwrite($handle, "Call initiated\n");
+
 include_once("config/database.php");
 include_once("config/paybox.php");
 require_once("engine/bo/TransactionBo.php");
@@ -26,11 +30,20 @@ $reference = $_REQUEST["Ref"];
 $errorCode = $_REQUEST["Erreur"];
 $signature = $_REQUEST["Sign"];
 
+// fwrite($handle, "Signature : $signature\n");
+
 $signature = base64_decode($signature);
 $query = $_SERVER["QUERY_STRING"];
 $signedData = substr($query, strpos($query, "&Mt") + 1, strpos($query, "&Sign") - strpos($query, "&Mt") - 1);
 
+// fwrite($handle, "Query : $query\n");
+// fwrite($handle, "Signed data : $signedData\n");
+
+// fwrite($handle, "PEM : ".$config["paybox"]["pem"]."\n");
+
 $isSigned = openssl_verify($signedData, $signature, $config["paybox"]["pem"]);
+
+// fwrite($handle, "Is signed : $isSigned\n");
 
 if (!$isSigned) {
 	exit();
@@ -43,15 +56,23 @@ if ($computedCode != $code) {
 	exit();
 }
 
-//$payboxIp = $_SERVER["REMOTE_ADDR"];
-$payboxIp = $_SERVER["HTTP_X_REAL_IP"];
+// fwrite($handle, "Computed code : $computedCode\n");
+
+$payboxIp = $_SERVER["REMOTE_ADDR"];
+if (!$payboxIp && $payboxIp == "127.0.0.1") {
+	$payboxIp = $_SERVER["HTTP_X_REAL_IP"];
+}
 $allowed = false;
+
+// fwrite($handle, "Paybox ip : $payboxIp\n");
 
 // Open the connection, may be used in the hooks
 $connection = openConnection();
 $transactionBo = TransactionBo::newInstance($connection);
 
 $transaction = $transactionBo->getTransactionByReference($reference, $amount / 100);
+
+// fwrite($handle, "Authorized IP : ".json_encode($config["paybox"]["allowed_ips"])."\n");
 
 foreach($config["paybox"]["allowed_ips"] as $allowedIp) {
 	if ($allowedIp == $payboxIp) {
@@ -61,8 +82,14 @@ foreach($config["paybox"]["allowed_ips"] as $allowedIp) {
 }
 
 if (!$allowed) {
+	fwrite($handle, "Not Allowed\n");
+	fclose($handle);
 	exit();
 }
+
+// fwrite($handle, "Allowed\n");
+
+fclose($handle);
 
 if ($transaction) {
 
