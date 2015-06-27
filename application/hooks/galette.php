@@ -70,6 +70,11 @@ $member["ville_adh"] = utf8_decode($transaction["tra_city"]);
 $member["pays_adh"] = utf8_decode($transaction["tra_country"]);
 $member["tel_adh"] = $transaction["tra_telephone"];
 $member["date_modif_adh"] = date("c");
+$member["activite_adh"] = 1;
+
+if (isset($purpose["forumPseudo"])) {
+	$member["pseudo_adh"] = $purpose["forumPseudo"];
+}
 
 $galetteBo->saveMember($member);
 
@@ -98,6 +103,11 @@ if (isset($purpose["donation"]) && $purpose["donation"] && $purpose["donation"] 
 
 	$galetteBo->insertCotisation($cotisation);
 
+	$additionals = array();
+	$additionals[] = array("item_id" => $cotisation["id_cotis"], "field_id" => 4, "field_form"=> "contrib",
+							"val_index" => 1,  "field_val" => 2);
+	$galetteBo->insertAdditionals($additionals);
+
 //	echo "Donation saved";
 }
 
@@ -116,6 +126,11 @@ if (isset($purpose["join"]) && $purpose["join"] && $purpose["join"] != 0) {
 
 	$galetteBo->insertCotisation($cotisation);
 
+	$additionals = array();
+	$additionals[] = array("item_id" => $cotisation["id_cotis"], "field_id" => 4, "field_form"=> "contrib",
+			"val_index" => 1,  "field_val" => 0);
+	$galetteBo->insertAdditionals($additionals);
+
 //	echo "Cotisation saved";
 
 	// Insert in SL
@@ -123,13 +138,12 @@ if (isset($purpose["join"]) && $purpose["join"] && $purpose["join"] != 0) {
 		$sectionName = utf8_decode($purpose["local"]["section"]);
 
 		$section = $galetteBo->getSectionByName($sectionName);
-
 		// insert section cotiz
 		$typeCotisation = $galetteBo->getTypeCotisationByLabel("annual fee");
 		$cotisation = array();
 		$cotisation["id_type_cotis"] = $typeCotisation["id_type_cotis"];
 		$cotisation["id_adh"] = $member["id_adh"];
-		$cotisation["montant_cotis"] = $purpose["local"]["donation"];
+		$cotisation["montant_cotis"] = $purpose["local"]["donation"] ? $purpose["local"]["donation"] : "0";
 		$cotisation["date_enreg"] = $transaction["tra_date"];
 		$cotisation["trans_id"] = $galetteTransaction["trans_id"];
 		$cotisation["type_paiement_cotis"] = 2;
@@ -138,6 +152,11 @@ if (isset($purpose["join"]) && $purpose["join"] && $purpose["join"] != 0) {
 		$cotisation["date_fin_cotis"] = $echeance;
 
 		$galetteBo->insertCotisation($cotisation);
+
+		$additionals = array();
+		$additionals[] = array("item_id" => $cotisation["id_cotis"], "field_id" => 4, "field_form"=> "contrib",
+				"val_index" => 1,  "field_val" => 1);
+		$galetteBo->insertAdditionals($additionals);
 
 //		echo "Locale Cotisation saved";
 	}
@@ -167,6 +186,11 @@ if (isset($purpose["project"]) && $purpose["project"]) {
 	$cotisation["date_fin_cotis"] = '';
 
 	$galetteBo->insertCotisation($cotisation);
+
+	$additionals = array();
+	$additionals[] = array("item_id" => $cotisation["id_cotis"], "field_id" => 4, "field_form"=> "contrib",
+			"val_index" => 1,  "field_val" => 4);
+	$galetteBo->insertAdditionals($additionals);
 
 //	echo "Project Cotisation saved";
 }

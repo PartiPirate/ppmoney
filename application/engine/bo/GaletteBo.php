@@ -167,8 +167,9 @@ class GaletteBo {
 	}
 
 	function createMember(&$member) {
-		$query = "	INSERT INTO galette_adherents (id_statut) VALUES (:id_statut)	";
+		$query = "	INSERT INTO galette_adherents (id_statut, login_adh) VALUES (:id_statut, :login_adh)	";
 		$args = array("id_statut" => $member["id_statut"]);
+		$args["login_adh"] = strtolower(substr(sha1(rand()), 0, 20));
 
 		$statement = $this->pdo->prepare($query);
 //		echo showQuery($query, $args);
@@ -250,6 +251,35 @@ class GaletteBo {
 		}
 
 		return false;
+	}
+
+	function insertAdditional($additional) {
+		$query = "	INSERT INTO galette_dynamic_fields
+						(item_id, field_id, field_form, val_index,
+						field_val)
+					VALUES
+						(:item_id, :field_id, :field_form, :val_index,
+						:field_val)	";
+
+		$statement = $this->pdo->prepare($query);
+		//		echo showQuery($query, $cotisation);
+
+		try {
+			$statement->execute($additional);
+
+			return true;
+		}
+		catch(Exception $e){
+			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+		return false;
+	}
+
+	function insertAdditionals($additionals) {
+		foreach($additionals as $additional) {
+			$this->insertAdditional($additional);
+		}
 	}
 
 	function insertCotisation(&$cotisation) {
