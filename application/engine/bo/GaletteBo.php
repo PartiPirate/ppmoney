@@ -22,8 +22,10 @@ class GaletteBo {
 	var $database = "";
 
 	function __construct($pdo, $database) {
+		if ($database) {
+			$this->database = $database . ".";
+		}
 		$this->pdo = $pdo;
-		$this->database = $database . ".";
 	}
 
 	static function newInstance($pdo, $database) {
