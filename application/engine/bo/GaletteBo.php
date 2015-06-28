@@ -19,13 +19,15 @@
 
 class GaletteBo {
 	var $pdo = null;
+	var $database = "";
 
-	function __construct($pdo) {
+	function __construct($pdo, $database) {
 		$this->pdo = $pdo;
+		$this->database = $database . ".";
 	}
 
-	static function newInstance($pdo) {
-		return new GaletteBo($pdo);
+	static function newInstance($pdo, $database) {
+		return new GaletteBo($pdo, $database);
 	}
 
 	function getMembers($filters = null) {
@@ -33,12 +35,12 @@ class GaletteBo {
 		$args = array();
 
 		$query = "	SELECT *
-					FROM galette_adherents ga \n";
+					FROM ".$this->database."galette_adherents ga \n";
 
 		if ($filters && isset($filters["adh_group_names"])) {
 			foreach($filters["adh_group_names"] as $index => $groupName) {
-				$query .= "	JOIN galette_groups_members ggm$index ON ggm$index.id_adh = ga.id_adh \n";
-				$query .= "	JOIN galette_groups gg$index ON gg$index.id_group = ggm$index.id_group \n";
+				$query .= "	JOIN ".$this->database."galette_groups_members ggm$index ON ggm$index.id_adh = ga.id_adh \n";
+				$query .= "	JOIN ".$this->database."galette_groups gg$index ON gg$index.id_group = ggm$index.id_group \n";
 			}
 		}
 
@@ -97,22 +99,28 @@ class GaletteBo {
 		return $this->getGroupByName($sectionName);
 	}
 
-	function getGroupByName($groupName) {
+	function getGroups($filters = null) {
 		$query = "	SELECT *
-					FROM galette_groups
-					WHERE 1 = 1
-					AND group_name = :group_name";
-		$args = array("group_name" => $groupName);
+					FROM ".$this->database."galette_groups
+					WHERE 1 = 1";
 
-//		echo showQuery($query, $args);
+		$args = array();
+
+		if ($filters && isset($filters["group_name"])) {
+			$query .= "	AND group_name = :group_name";
+			$args["group_name"] = $filters["group_name"];
+		}
+
+		//		echo showQuery($query, $args);
 		$statement = $this->pdo->prepare($query);
+
+		$groups = array();
 
 		try {
 			$statement->execute($args);
 			$results = $statement->fetchAll();
 
-			if (count($results)) {
-				$group = $results[0];
+			foreach($results as $group) {
 
 				foreach($group as $field => $value) {
 					if (is_numeric($field)) {
@@ -120,19 +128,29 @@ class GaletteBo {
 					}
 				}
 
-				return $group;
+				$groups[] = $group;
 			}
 		}
 		catch(Exception $e){
 			echo 'Erreur de requète : ', $e->getMessage();
 		}
 
+		return $groups;
+	}
+
+	function getGroupByName($groupName) {
+		$filters = array("group_name" => $groupName);
+
+		$groups = $this->getGroups($filters);
+
+		if (count($groups)) return $groups[0];
+
 		return null;
 	}
 
 	function getStatusByLabel($statusLabel) {
 		$query = "	SELECT *
-					FROM galette_statuts
+					FROM ".$this->database."galette_statuts
 					WHERE 1 = 1
 					AND libelle_statut = :libelle_statut";
 		$args = array("libelle_statut" => $statusLabel);
@@ -167,7 +185,7 @@ class GaletteBo {
 	}
 
 	function createMember(&$member) {
-		$query = "	INSERT INTO galette_adherents (id_statut, login_adh) VALUES (:id_statut, :login_adh)	";
+		$query = "	INSERT INTO ".$this->database."galette_adherents (id_statut, login_adh) VALUES (:id_statut, :login_adh)	";
 		$args = array("id_statut" => $member["id_statut"]);
 		$args["login_adh"] = strtolower(substr(sha1(rand()), 0, 20));
 
@@ -180,7 +198,7 @@ class GaletteBo {
 
 			return true;
 		}
-		catch(Exception $e){
+		catch(Exception $e) {
 			echo 'Erreur de requète : ', $e->getMessage();
 		}
 
@@ -188,7 +206,7 @@ class GaletteBo {
 	}
 
 	function updateMember(&$member) {
-		$query = "	UPDATE galette_adherents SET ";
+		$query = "	UPDATE ".$this->database."galette_adherents SET ";
 
 		$separator = "";
 		foreach($member as $field => $value) {
@@ -214,7 +232,7 @@ class GaletteBo {
 	}
 
 	function insertMemberInGroup($memberInGroup) {
-		$query = "	INSERT INTO galette_groups_members (id_group, id_adh) VALUES (:id_group, :id_adh)	";
+		$query = "	INSERT INTO ".$this->database."galette_groups_members (id_group, id_adh) VALUES (:id_group, :id_adh)	";
 
 		$statement = $this->pdo->prepare($query);
 //		echo showQuery($query, $memberInGroup);
@@ -224,7 +242,7 @@ class GaletteBo {
 
 			return true;
 		}
-		catch(Exception $e){
+		catch(Exception $e) {
 			echo 'Erreur de requète : ', $e->getMessage();
 		}
 
@@ -232,10 +250,10 @@ class GaletteBo {
 	}
 
 	function insertTransaction(&$transaction) {
-		$query = "	INSERT INTO galette_transactions
-		(trans_date, trans_amount, trans_desc, id_adh)
-		VALUES
-		(:trans_date, :trans_amount, :trans_desc, :id_adh)	";
+		$query = "	INSERT INTO ".$this->database."galette_transactions
+						(trans_date, trans_amount, trans_desc, id_adh)
+					VALUES
+						(:trans_date, :trans_amount, :trans_desc, :id_adh)	";
 
 		$statement = $this->pdo->prepare($query);
 		//		echo showQuery($query, $args);
@@ -246,7 +264,7 @@ class GaletteBo {
 
 			return true;
 		}
-		catch(Exception $e){
+		catch(Exception $e) {
 			echo 'Erreur de requète : ', $e->getMessage();
 		}
 
@@ -310,7 +328,7 @@ class GaletteBo {
 
 	function getTypeCotisationByLabel($label) {
 		$query = "	SELECT *
-					FROM galette_types_cotisation
+					FROM ".$this->database."galette_types_cotisation
 					WHERE 1 = 1
 					AND libelle_type_cotis = :libelle_type_cotis";
 		$args = array("libelle_type_cotis" => $label);
