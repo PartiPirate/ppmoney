@@ -205,7 +205,7 @@ ul li input[type=radio] {
     height: 30px !important;
 }
 
-#identityDiv, #identity2Div, #emailDiv, #address1Div, #address2Div {
+#identityDiv, #identity2Div, #identity3Div, #emailDiv, #address1Div, #address2Div {
 	height: 55px !important;
 }
 
@@ -219,8 +219,17 @@ ul li input[type=radio] {
     width: 320px;
 }
 
+#identity3Div #lastnameInputDiv, #identity3Div #lastnameInputDiv input,
+#identity3Div #firstnameInputDiv, #identity3Div #firstnameInputDiv input {
+    width: 206px;
+}
+
 #emailDiv #emailInputDiv, #emailDiv #emailInputDiv input {
     width: 196px;
+}
+
+#address1Div, #address1Div input {
+	width: 100%;
 }
 
 #address2Div #zipcodeInputDiv, #address2Div #zipcodeInputDiv input {
@@ -257,6 +266,7 @@ ul li input[type=radio] {
 
 #identityDiv #lastnameInputDiv,
 #identity2Div #emailInputDiv,
+#identity3Div #lastnameInputDiv,
 #emailDiv #emailInputDiv,
 #address2Div #zipcodeInputDiv, #address2Div #cityInputDiv, #address2Div #countryInputDiv,
 #localSectionJoinDiv {

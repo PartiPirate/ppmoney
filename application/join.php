@@ -53,7 +53,7 @@ include_once("header.php");
 </ul>
 
 
-<div class="explanation" id="coordinatesDiv">
+<div class="explanation join" id="coordinatesDiv">
 	<h2><?php echo lang("pp_money_coordinates_title"); ?></h2>
 	<div>
 		<p class="error"><?php echo lang("pp_money_coordinates_explanation"); ?></p>
@@ -85,7 +85,7 @@ include_once("header.php");
 		</div>
 
 		<div id="address1Div"><?php echo lang("pp_money_coordinates_fiscal_address"); ?> <span class="error">*</span><br/>
-			<input tabindex="106" type="text" name="address" style="width: 100%;" /></div>
+			<input tabindex="106" type="text" name="address" /></div>
 
 		<div id="address2Div">
 			<div id="zipcodeInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_zipcode"); ?> <span class="error">*</span><br/><input tabindex="107" type="text" name="zipcode" /></div>
