@@ -314,10 +314,11 @@ ul li input[type=radio] {
 #realCostDiv {
     border: #797979 solid 1px !important;
     background: #cccccc;
-    width: 428px;
+    width: 417px;
     height: 50px !important;
     padding-top: 7px !important;
     padding-left: 7px !important;
+    margin-left: 5px;
 }
 
 #iDonateDiv {
