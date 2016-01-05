@@ -166,6 +166,7 @@ include_once("header.php");
 
 <div class="explanation">
 	<h2><?php echo lang("pp_money_to_know_title"); ?></h2>
+
 	<p><?php
 
 	$content = lang("pp_money_to_know_content");

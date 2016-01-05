@@ -89,9 +89,7 @@ $lang["pp_money_i_certify_content"] = "Je certifie sur l'honneur que <span class
 </ul>";
 
 $lang["pp_money_to_know_title"] = "&Agrave; savoir";
-$lang["pp_money_to_know_content"] = "<strong>Pour l'année 2015, les cotisations et les dons au Parti Pirate ne donneront pas droit à une déduction fiscale.</strong>
-
-Outre <a href=\"http://wiki.partipirate.org/Statuts\">nos statuts</a> et <a href=\"http://wiki.partipirate.org/R%C3%A8glement_int%C3%A9rieur\">notre règlement intérieur</a> que vous devrez lire puisque vous vous engagez à vous y conformer, nous vous invitons particulièrement à prendre connaissance de <a href=\"http://wiki.partipirate.org/wiki/D%C3%A9claration_de_politique_g%C3%A9n%C3%A9rale\">notre déclaration de politique générale</a> et de <a href=\"http://wiki.partipirate.org/wiki/Programme\">notre programme</a> avant de remplir votre demande d'adhésion.
+$lang["pp_money_to_know_content"] = "Outre <a href=\"http://wiki.partipirate.org/Statuts\">nos statuts</a> et <a href=\"http://wiki.partipirate.org/R%C3%A8glement_int%C3%A9rieur\">notre règlement intérieur</a> que vous devrez lire puisque vous vous engagez à vous y conformer, nous vous invitons particulièrement à prendre connaissance de <a href=\"http://wiki.partipirate.org/wiki/D%C3%A9claration_de_politique_g%C3%A9n%C3%A9rale\">notre déclaration de politique générale</a> et de <a href=\"http://wiki.partipirate.org/wiki/Programme\">notre programme</a> avant de remplir votre demande d'adhésion.
 Les adhésions en tant que personne morale ne sont pas ouvertes.
 
 Cette adhésion est valide de date à date.
@@ -100,16 +98,18 @@ Voir cette page pour <a href=\"https://www.partipirate.org/Mentions-legales\">no
 
 <strong>Vous devez indiquer votre véritable identité car se faire établir et utiliser un reçu-don sous une fausse identité constituerait une fraude fiscale.</strong>
 
-Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.";
-$lang["pp_money_to_know_content2"] = "<strong>Pour l'année 2015, les cotisations et les dons au Parti Pirate ne donneront pas droit à une déduction fiscale.</strong>
+Votre adhésion vaut pour une année de date à date et vous donne droit à une réduction annuelle d'impôt sur le revenu à hauteur de 66% de son montant, dans la double limite de 20% du revenu imposable et de 15 000 € de dons par foyer fiscal.
 
-Le Parti Pirate est une association à but politique régie par la loi du 1er juillet 1901. L’Association de Financement du Parti Pirate, déclarée le 21/04/2011 a été agréée le 18/07/2011.
+Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.";
+$lang["pp_money_to_know_content2"] = "Le Parti Pirate est une association à but politique régie par la loi du 1er juillet 1901. L’Association de Financement du Parti Pirate, déclarée le 21/04/2011 a été agréée le 18/07/2011.
 
 Les données collectées seront utilisées pour le contrôle des comptes auprès de la CNCCFP (Commission nationale des comptes de campagne et des financements politiques) et à des fins de comptabilité interne ; elles seront communiquées au secrétariat national et, de façon partielle, au chargé de trésorerie de la section locale ou interne à laquelle vous donnez. En sus de ces traitements, vos données seront utilisées de manière anonyme pour des traitements statistiques qui pourront être publiés.
 
 Conformément à la loi N°78-17 du 6 janvier 1978 dite « Informatique et Libertés », vous disposez d’un droit d’accès, de modification, de rectification, de suppression des données qui vous concernent. Toute demande peut être adressée à <a href=\"mailto:secretaires-nationaux@lists.partipirate.org\">secretaires-nationaux@lists.partipirate.org</a>.
 
 <strong>Vous devez indiquer votre véritable identité car se faire établir et utiliser un reçu-don sous une fausse identité constituerait une fraude fiscale.</strong>
+
+Votre adhésion vaut pour une année de date à date et vous donne droit à une réduction annuelle d'impôt sur le revenu à hauteur de 66% de son montant, dans la double limite de 20% du revenu imposable et de 15 000 € de dons par foyer fiscal.
 
 Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.";
 
@@ -126,8 +126,8 @@ $lang["pp_money_mail_donate_content"] = "<a href='https://www.partipirate.fr/IMG
 
 $lang["pp_money_reducing_taxes_title"] = "Réduction d'impôts";
 $lang["pp_money_reducing_taxes_content"] = "Votre adhésion vaut pour une année de date à date et vous donne droit à une réduction annuelle d’impôt sur le revenu à hauteur de 66% de son montant, dans la double limite de 20% du revenu imposable et de 15 000 € de dons par foyer fiscal.";
-$lang["pp_money_reducing_taxes_show"] = "0";
-$lang["pp_money_reducing_taxes_value"] = "0";
+$lang["pp_money_reducing_taxes_show"] = "1";
+$lang["pp_money_reducing_taxes_value"] = "66";
 
 $lang["pp_money_project_intro_title"] = "Kezako ?";
 $lang["pp_money_project_participation_title"] = "Votre participation";
