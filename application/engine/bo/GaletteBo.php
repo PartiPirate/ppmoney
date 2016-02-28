@@ -60,9 +60,8 @@ class GaletteBo {
 			}
 		}
 
-		$statement = $this->pdo->prepare($query);
-
 //		echo showQuery($query, $args);
+		$statement = $this->pdo->prepare($query);
 
 		try {
 			$statement->execute($args);
@@ -274,7 +273,7 @@ class GaletteBo {
 	}
 
 	function insertAdditional($additional) {
-		$query = "	INSERT INTO galette_dynamic_fields
+		$query = "	INSERT INTO ".$this->database."galette_dynamic_fields
 						(item_id, field_id, field_form, val_index,
 						field_val)
 					VALUES
@@ -303,7 +302,7 @@ class GaletteBo {
 	}
 
 	function insertCotisation(&$cotisation) {
-		$query = "	INSERT INTO galette_cotisations
+		$query = "	INSERT INTO ".$this->database."galette_cotisations
 						(id_adh, id_type_cotis, montant_cotis, type_paiement_cotis,
 						info_cotis, date_enreg, date_debut_cotis,
 						date_fin_cotis, trans_id)

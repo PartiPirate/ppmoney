@@ -26,6 +26,8 @@ include_once("config/mail.php");
 
 $purpose = json_decode($transaction["tra_purpose"], true);
 
+//print_r($transaction);
+
 if (isset($purpose["join"])) {
 
 	$mail = getMailInstance();
@@ -35,6 +37,7 @@ if (isset($purpose["join"])) {
 
 	// L'adresse ici des SN
 	$mail->addAddress("secretaires-nationaux@lists.partipirate.org");
+	$mail->addCC("dvi@partipirate.org");
 
 	$subject = "[PartiPirate] Un nouvel adhérent";
 	$mailMessage = "Bonjour,\n\n";
@@ -77,32 +80,33 @@ if (isset($purpose["join"])) {
 		$mailMessage .= "Commentaire : ".$purpose["comment"]."\n";
 	}
 
-	$headers = "From: " . $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">" ."\r\n" .
-	"Reply-To: " . $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">" ."\r\n" .
-	"To: secretaires-nationaux@lists.partipirate.org\r\n" .
-	"X-Mailer: PHP/" . phpversion();
+// 	$headers = "From: " . $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">" ."\r\n" .
+// 	"Reply-To: " . $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">" ."\r\n" .
+// 	"To: secretaires-nationaux@lists.partipirate.org\r\n" .
+// 	"X-Mailer: PHP/" . phpversion();
 
-	$mail->Subject = subjectEncode($subject);
+	$mail->Subject = subjectEncode(utf8_encode($subject));
 	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
 	$mail->AltBody = utf8_decode($mailMessage);
 
-	if (sendMail($config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">",
-		"secretaires-nationaux@lists.partipirate.org",
-		$mail->Subject,
-		$mail->AltBody,
-		"",
-		"dvi@partipirate.org",
-		"")) {
+// 	if (sendMail($config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">",
+// 		"secretaires-nationaux@lists.partipirate.org",
+// 		$mail->Subject,
+// 		$mail->AltBody,
+// 		"",
+// 		"dvi@partipirate.org",
+// 		"")) {
+// 	}
+
+// 	if (mail("secretaires-nationaux@lists.partipirate.org", $mail->Subject, $mail->AltBody, $headers)) {
+// 		echo "Send SN Mails<br/>";
+// 	}
+
+
+	$mail->SMTPSecure = "ssl";
+	if ($mail->send()) {
+//		echo "Send SN Mails<br/>";
 	}
-
-//	if (mail("secretaires-nationaux@lists.partipirate.org", $mail->Subject, $mail->AltBody, $headers)) {
-//		echo "Send SN Mails<br/>";
-//	}
-
-
-//	if ($mail->send()) {
-//		echo "Send SN Mails<br/>";
-//	}
 
 	// Envoi du mail à l'adhérent
 	$subject = "[PartiPirate] Mail de bienvenue";
@@ -121,17 +125,34 @@ Encore une fois, bienvenue à bord !
 
 Le Parti Pirate";
 
-	$subject = subjectEncode($subject);
-	$from = $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">";
+// 	$subject = subjectEncode($subject);
+// 	$from = $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">";
 
-	if (sendMail($from, $transaction["tra_email"],
-		$subject,
-		str_replace("\n", "<br>\n", utf8_decode($mailMessage)),
-		"",
-		"",
-		"")) {
-//		echo "Send member mail<br/>";
+// 	if (sendMail($from, $transaction["tra_email"],
+// 		$subject,
+// 		str_replace("\n", "<br>\n", utf8_decode($mailMessage)),
+// 		"",
+// 		"",
+// 		"")) {
+// //		echo "Send member mail<br/>";
+// 	}
+
+	$mail = getMailInstance();
+
+	$mail->setFrom($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+	$mail->addReplyTo($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+
+	$mail->Subject = subjectEncode($subject);
+	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
+	$mail->AltBody = utf8_decode($mailMessage);
+
+	$mail->addAddress($transaction["tra_email"]);
+
+	$mail->SMTPSecure = "ssl";
+	if ($mail->send()) {
+//		echo "Send SN Mails<br/>";
 	}
 
+//	echo "Hook SN<br />";
 }
 ?>
