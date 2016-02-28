@@ -29,11 +29,16 @@ $purpose = json_decode($transaction["tra_purpose"], true);
 //print_r($purpose);
 
 $galetteDatabase = isset($config["galette"]["database"]) ? $config["galette"]["database"] : $config["database"]["database"];
-$galetteConnection = openConnection($galetteDatabase);
+//$galetteConnection = openConnection($galetteDatabase);
 
-$galetteBo = GaletteBo::newInstance($galetteConnection);
+//echo "galetteDatabase $galetteDatabase <br />";
+
+$galetteBo = GaletteBo::newInstance($connection, $galetteDatabase);
+
+//echo "galetteDatabase $galetteDatabase <br />";
 
 $member = $galetteBo->getMemberByMail($transaction["tra_email"]);
+//print_r($member);
 
 if (isset($purpose["join"])) {
 	$status = $galetteBo->getStatusByLabel("Active member");
@@ -47,11 +52,19 @@ else {
 if ($member == null) {
 	$member = array();
 	$member["id_statut"] = $status["id_statut"];
-	$member["date_crea_adh"] = date("c");
+//	$member["date_crea_adh"] = date("c");
+	$member["date_crea_adh"] = $transaction["tra_date"];
 }
 
 // Echeance dans un an : date("Y-m-d")."T".date("H:i:s")
-$echeance = new DateTime();
+//$echeance = new DateTime();
+
+$echeance = new DateTime($transaction["tra_date"]);
+
+// echo "!!";
+// print_r($echeance);
+// echo "!!<br>";
+
 $oneYear = new DateInterval("P1Y");
 $echeance = $echeance->add($oneYear);
 $echeance = $echeance->format("Y-m-d H:i:s");
@@ -69,7 +82,8 @@ $member["cp_adh"] = $transaction["tra_zipcode"];
 $member["ville_adh"] = utf8_decode($transaction["tra_city"]);
 $member["pays_adh"] = utf8_decode($transaction["tra_country"]);
 $member["tel_adh"] = $transaction["tra_telephone"];
-$member["date_modif_adh"] = date("c");
+//$member["date_modif_adh"] = date("c");
+$member["date_modif_adh"] = $transaction["tra_date"];
 $member["activite_adh"] = 1;
 
 if (isset($purpose["forumPseudo"])) {
