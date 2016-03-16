@@ -53,6 +53,20 @@ class GaletteBo {
 			$args["email_adh"] = $filters["email_adh"];
 		}
 
+		if ($filters && isset($filters["mdp_adh"])) {
+			$query .= "	AND ga.mdp_adh = :mdp_adh \n";
+			$args["mdp_adh"] = $filters["mdp_adh"];
+		}
+
+		if ($filters && isset($filters["activite_adh"])) {
+			$query .= "	AND ga.activite_adh = :activite_adh \n";
+			$args["activite_adh"] = $filters["activite_adh"];
+		}
+		if ($filters && isset($filters["id_statut"])) {
+			$query .= "	AND ga.id_statut = :id_statut \n";
+			$args["id_statut"] = $filters["id_statut"];
+		}
+
 		if ($filters && isset($filters["adh_group_names"])) {
 			foreach($filters["adh_group_names"] as $index => $groupName) {
 				$query .= "	AND gg$index.group_name =  :group_name_$index \n";

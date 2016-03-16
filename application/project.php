@@ -128,41 +128,12 @@ include_once("header.php");
 	echo $content; ?></p>
 </div>
 
-<div class="explanation" id="crowdfundingDiv">
-	<h2><?php echo lang("pp_money_project_crowdfunding_title"); ?></h2>
-	<p><?php
-
-	$content = lang("pp_money_project_crowdfunding_guide");
-	$content = explode("\n", $content);
-	$content = implode("</p><p>", $content);
-
-	echo $content; ?></p>
-</div>
-
-<!--
-<div class="explanation" id="donationDiv">
-	<h2><?php echo lang("pp_money_donation_title"); ?></h2>
-	<div>
-		<div class="pull-left" id="iDonateDiv">
-			<?php echo lang("pp_money_donation_i_donate"); ?><br />
-			<input type="text" name="donation" id="donationInput" value="" />
-		</div>
-
-		<div class="pull-right" id="realCostDiv">
-			<span class="pull-right" id="realCostSpan"></span>
-			<?php echo lang("pp_money_donation_real_cost2"); ?>
-		</div>
-
-	</div>
-</div>
- -->
-
 <div class="explanation" id="coordinatesDiv">
 	<h2><?php echo lang("pp_money_coordinates_title"); ?></h2>
 	<div>
 		<p class="error"><?php echo lang("pp_money_coordinates_explanation"); ?></p>
 
-		<div id="identityDiv">
+		<div id="identity3Div">
 			<div id="lastnameInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_lastname"); ?> <span class="error">*</span><br/><input tabindex="100" type="text" name="lastname" /></div>
 			<div id="firstnameInputDiv" class="pull-left"><?php echo lang("pp_money_coordinates_firstname"); ?> <span class="error">*</span><br/><input tabindex="101" type="text" name="firstname" /></div>
 			<div id="emailInputDiv" class="pull-right"><?php echo lang("pp_money_coordinates_email"); ?> <span class="error">*</span><br/><input tabindex="102" type="text" name="email" /></div>
@@ -204,6 +175,17 @@ include_once("header.php");
 
 <div class="explanation text-center">
 	<input tabindex="400" id="iDonateButton" type="submit" value="<?php echo lang("pp_money_i_project_button"); ?>">
+</div>
+
+<div class="explanation" id="crowdfundingDiv">
+	<h2><?php echo lang("pp_money_project_crowdfunding_title"); ?></h2>
+	<p><?php
+
+	$content = lang("pp_money_project_crowdfunding_guide");
+	$content = explode("\n", $content);
+	$content = implode("</p><p>", $content);
+
+	echo $content; ?></p>
 </div>
 
 <div class="explanation">

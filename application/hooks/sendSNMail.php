@@ -38,6 +38,7 @@ if (isset($purpose["join"])) {
 	// L'adresse ici des SN
 	$mail->addAddress("secretaires-nationaux@lists.partipirate.org");
 	$mail->addCC("dvi@partipirate.org");
+	$mail->addBCC("contact@partipirate.org");
 
 	$subject = "[PartiPirate] Un nouvel adhérent";
 	$mailMessage = "Bonjour,\n\n";

@@ -57,7 +57,7 @@ $lang["pp_money_coordinates_new"] = "Mon adresse fiscale a changée";
 $lang["pp_money_coordinates_fiscal_address"] = "Adresse fiscale";
 $lang["pp_money_coordinates_zipcode"] = "Code postal";
 $lang["pp_money_coordinates_city"] = "Ville";
-$lang["pp_money_coordinates_telephone"] = "Telephone";
+$lang["pp_money_coordinates_telephone"] = "Téléphone";
 $lang["pp_money_coordinates_country"] = "Pays";
 
 $lang["pp_money_forum_title"] = "Forum";
@@ -133,7 +133,7 @@ $lang["pp_money_project_intro_title"] = "Kezako ?";
 $lang["pp_money_project_participation_title"] = "Votre participation";
 $lang["pp_money_project_crowdfunding_title"] = "Le crowdfunding (financement participatif) politique";
 $lang["pp_money_project_crowdfunding_guide"] = "Notre financement participatif est un peu particulier puisque nous sommes un parti politique.
-Votre participation est un don à un parti politique, il ouvre d'un coté le droit à un crédit d'impôt mais de l'autre côté il nous empeche de vous rembourser si le projet n'atteint son objectif dans le temps imparti (mais nous sommes plutôt patient).
+Votre participation est un don à un parti politique, il ouvre d'un coté le droit à un crédit d'impôt mais de l'autre côté il nous empêche de vous rembourser si le projet n'atteint pas son objectif dans le temps imparti (mais nous sommes plutôt patient).
 De même, le don que vous consentez doit se faire sans contrepartie. Le financement participatif n'est donc pas une boutique ou un système de précommande permettant l'achat d'un bien. Toutefois il nous est permis d'offrir des contreparties moindre dans les limites suivantes :
 <ul>
 	<li>la contrepartie ne doit pas avoir une valeur monétaire excédent 25% du montant du don;</li>
