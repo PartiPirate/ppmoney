@@ -65,7 +65,7 @@ $lang["pp_money_forum_explanation"] = "Je veux participer au forum (si vous coch
 $lang["pp_money_forum_pseudo"] = "Pseudo";
 
 $lang["pp_money_local_section_title"] = "Sections locales";
-$lang["pp_money_local_section_guide"] = "Si votre région n'est pas présente dans la liste, c'est qu'aucun groupe local ne s'est encore créé dans votre région. Vous pouvez vous renseigner <a href=\"https://wiki.partipirate.org/D%C3%A9l%C3%A9gu%C3%A9_%C3%A0_la_Vie_Interne\"<ici</a> pour initier un projet.";
+$lang["pp_money_local_section_guide"] = "Si votre région n'est pas présente dans la liste, c'est qu'aucun groupe local ne s'est encore créé dans votre région. Vous pouvez vous renseigner <a href=\"https://wiki.partipirate.org/D%C3%A9l%C3%A9gu%C3%A9_%C3%A0_la_Vie_Interne\">ici</a> pour initier un projet.";
 $lang["pp_money_local_section_donation"] = "Je fais un don à cette section";
 $lang["pp_money_local_section_join"] = "Je rejoins la section locale suivante";
 $lang["pp_money_local_section_sections"] = ",Alsace,Aquitaine,Auvergne,Bretagne,Île-de-France,Languedoc-Roussillon,Midi-Pyrénées,Picardie,Nord-Pas-de-Calais,Rhône-Alpes,Section Expatriés";
