@@ -27,7 +27,7 @@ $lang["language_de"] = "Allemand";
 
 $lang["pp_title"] = "PPMoney - Parti Pirate";
 $lang["pp_donate_title"] = "Je fais un don au Parti Pirate";
-$lang["pp_project_title"] = "Je donne au Parti Pirate pour &laquo; {project} &raquo;";
+$lang["pp_project_title"] = "Je donne au Parti Pirate pour &laquo;&nbsp;{project}&nbsp;&raquo;";
 $lang["pp_projects_title"] = "Parti Pirate, ses projets";
 $lang["pp_join_title"] = "Votre adhésion en ligne au Parti Pirate";
 $lang["pp_notDone_title"] = "Le processus n'est pas allé jusqu'au bout";
