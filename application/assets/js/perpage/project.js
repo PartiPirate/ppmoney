@@ -43,10 +43,6 @@ function computeTotalAmount() {
 	return cost;
 }
 
-function scrollToForm() {
-	$("html, body").delay(1000).animate({scrollTop: $('#coordinatesDiv').offset().top }, 1000);
-}
-
 function computeRealCost() {
 	var cost = computeTotalAmount();
 	var realCost = Math.ceil(cost * (1 - taxReduction));
@@ -115,13 +111,44 @@ function isCompleteFormHandler(event) {
 	}
 }
 
+function scrollRighters() {
+	var top = $("body").scrollTop();
+	if (top == 0) {
+		top = $("html").scrollTop();
+	}
+	var rightPartTop = $("#righters").offset().top;
+	var limitTop = $('#coordinatesDiv').offset().top;
+
+	var firstChild = $("#righters").children().eq(0);
+
+	firstChild.clearQueue();
+	firstChild.stop();
+
+	if (top > rightPartTop && top < limitTop) {
+		firstChild.delay(500).animate({marginTop: (top - rightPartTop) + "px"}, 500);
+	}
+	else if (top >= limitTop) {
+		firstChild.delay(500).animate({marginTop: (limitTop - rightPartTop) + "px"}, 500);
+	}
+	else {
+		firstChild.delay(500).animate({marginTop: "0"}, 500);
+	}
+}
+
+function scrollToForm() {
+	$("html, body").delay(500).animate({scrollTop: $('#coordinatesDiv').offset().top }, 500, "swing", scrollRighters);
+}
+
 $(function() {
 	$("input[name=projectDonation]").click(computeRealCost);
 	$("input[name=projectDonation]").click(scrollToForm);
 	$("#donationInput").keyup(computeRealCost);
 	$("#donationInput").blur(scrollToForm);
 
+	$(window).scroll(scrollRighters);
+
 	$("#form").submit(isCompleteFormHandler);
 
 	computeRealCost();
+	scrollRighters();
 });
