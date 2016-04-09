@@ -68,7 +68,7 @@ $lang["pp_money_local_section_title"] = "Sections locales";
 $lang["pp_money_local_section_guide"] = "Si votre région n'est pas présente dans la liste, c'est qu'aucun groupe local ne s'est encore créé dans votre région. Vous pouvez vous renseigner <a href=\"https://wiki.partipirate.org/D%C3%A9l%C3%A9gu%C3%A9_%C3%A0_la_Vie_Interne\">ici</a> pour initier un projet.";
 $lang["pp_money_local_section_donation"] = "Je fais un don à cette section";
 $lang["pp_money_local_section_join"] = "Je rejoins la section locale suivante";
-$lang["pp_money_local_section_sections"] = ",Alsace,Aquitaine,Auvergne,Bretagne,Île-de-France,Languedoc-Roussillon,Midi-Pyrénées,Picardie,Nord-Pas-de-Calais,Rhône-Alpes,Section Expatriés";
+$lang["pp_money_local_section_sections"] = ",Alsace-Champagne-Ardennes-Lorraine,Aquitaine-Limousin-Poitou-Charente,Auvergne-Rhône-Alpes,Bourgogne-Franche-Comté,Bretagne,Centre-Val-de-Loire,Corse,Île-de-France,Languedoc-Roussillon-Midi-Pyrénées,Nord-Pas-de-Calais-Picardie,Normandie,Pays-de-la-Loire,Provence-Alpes-Côte-d-Azur,Section Expatriés";
 
 $lang["pp_money_donation_title"] = "Dons</span>";
 $lang["pp_money_donation_baseline"] = "Beaucoup de frais sont engagés par le Parti Pirate pour les dépenses \"courantes\". Il s'agit de la maintenance des serveurs, de l'organisation des assemblées générales, des assurances, des commissaires aux comptes, ...";
