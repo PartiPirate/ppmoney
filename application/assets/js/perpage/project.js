@@ -43,6 +43,10 @@ function computeTotalAmount() {
 	return cost;
 }
 
+function scrollToForm() {
+	$("html, body").delay(1000).animate({scrollTop: $('#coordinatesDiv').offset().top }, 1000);
+}
+
 function computeRealCost() {
 	var cost = computeTotalAmount();
 	var realCost = Math.ceil(cost * (1 - taxReduction));
@@ -113,7 +117,9 @@ function isCompleteFormHandler(event) {
 
 $(function() {
 	$("input[name=projectDonation]").click(computeRealCost);
+	$("input[name=projectDonation]").click(scrollToForm);
 	$("#donationInput").keyup(computeRealCost);
+	$("#donationInput").blur(scrollToForm);
 
 	$("#form").submit(isCompleteFormHandler);
 
