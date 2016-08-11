@@ -83,8 +83,8 @@ $lang["pp_money_other_information_subscription"] = "Je m'abonne aux compte-rendu
 
 $lang["pp_money_i_certify_content"] = "Je certifie sur l'honneur que <span class=\"error\">*</span> :
 <ul>
-<li>je suis une personne physique et le règlement de ma cotisation ne provient pas du compte d'une personne morale (société, association, collectivité...),</li>
-<li>le paiement de ma cotisation provient de mon compte bancaire personnel ou de celui de mon conjoint, concubin, ascendant ou descendant.</li>
+<li>je suis une personne physique et le règlement de ma cotisation et/ou don ne provient pas du compte d'une personne morale (société, association, collectivité...),</li>
+<li>le paiement de ma cotisation et/ou don provient de mon compte bancaire personnel ou de celui de mon conjoint, concubin, ascendant ou descendant.</li>
 <li>j'ai bien lu les mentions \"à savoir\" ci-dessous</li>
 </ul>";
 
