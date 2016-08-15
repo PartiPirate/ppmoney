@@ -143,7 +143,24 @@ function isCompleteFormHandler(event) {
 	}
 }
 
+function rejoin() {
+	$("input[name=lastname]").val(member["nom_adh"]);
+	$("input[name=firstname]").val(member["prenom_adh"]);
+
+	$("input[name=pseudo]").val(member["pseudo_adh"]);
+	$("input[name=address]").val(member["adresse_adh"]);
+//	$("#").val(member["adresse2_adh"]);
+	$("input[name=zipcode]").val(member["cp_adh"]);
+	$("input[name=city]").val(member["ville_adh"]);
+	$("input[name=country]").val(member["pays_adh"]);
+	$("input[name=telephone]").val(member["tel_adh"]);
+//	$("#").val(member["gsm_adh"]);
+	$("input[name=email]").val(member["email_adh"]);
+}
+
 $(function() {
+	rejoin();
+	
 	$("input[name=costRadio]").click(computeRealCost);
 	$("#donationInput").keyup(computeRealCost);
 	$("#localDonationInput").keyup(computeRealCost);

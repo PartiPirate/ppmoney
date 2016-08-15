@@ -18,6 +18,26 @@
 */
 include_once("header.php");
 
+if (isset($_REQUEST["join-member-input"])) {
+	$member = json_decode($_REQUEST["join-member-input"], true);
+}
+else {
+	$member = array
+		(
+			"nom_adh" => "",
+			"prenom_adh" => "",
+			"pseudo_adh" => "",
+			"adresse_adh" => "",
+			"adresse2_adh" => "",
+			"cp_adh" => "",
+			"ville_adh" => "",
+			"pays_adh" => "FRANCE",
+			"tel_adh" => "",
+			"gsm_adh" => "",
+			"email_adh" => ""
+		);	
+}
+
 ?>
 <body>
 
@@ -187,6 +207,9 @@ include_once("header.php");
 
 <script type="text/javascript">
 	var taxReduction = <?php echo lang("pp_money_reducing_taxes_value"); ?> / 100.;
+
+	var member = <?php echo json_encode($member); ?>;
+		
 </script>
 <?php include("footer.php");?>
 </body>
