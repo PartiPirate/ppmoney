@@ -65,7 +65,7 @@ $lang["pp_money_forum_explanation"] = "Je veux participer au forum (si vous coch
 $lang["pp_money_forum_pseudo"] = "Pseudo";
 
 $lang["pp_money_local_section_title"] = "Sections locales";
-$lang["pp_money_local_section_guide"] = "Si votre région n'est pas présente dans la liste, c'est qu'aucun groupe local ne s'est encore créé dans votre région. Vous pouvez vous renseigner <a href=\"https://wiki.partipirate.org/D%C3%A9l%C3%A9gu%C3%A9_%C3%A0_la_Vie_Interne\">ici</a> pour initier un projet.";
+$lang["pp_money_local_section_guide"] = "Si votre région n'est pas présente dans la liste, c'est qu'aucun groupe local ne s'est encore créé dans votre région. Vous pouvez vous renseigner <a href=\"https://wiki.partipirate.org/D%C3%A9l%C3%A9gu%C3%A9_%C3%A0_la_Vie_Interne\" target=\"_blank\">ici</a> pour initier un projet.";
 $lang["pp_money_local_section_donation"] = "Je fais un don à cette section";
 $lang["pp_money_local_section_join"] = "Je rejoins la section locale suivante";
 $lang["pp_money_local_section_sections"] = ",Alsace-Champagne-Ardennes-Lorraine,Aquitaine-Limousin-Poitou-Charente,Auvergne-Rhône-Alpes,Bourgogne-Franche-Comté,Bretagne,Centre-Val-de-Loire,Corse,Île-de-France,Languedoc-Roussillon-Midi-Pyrénées,Nord-Pas-de-Calais-Picardie,Normandie,Outre-Mer,Pays-de-la-Loire,Provence-Alpes-Côte-d-Azur,Section Expatriés";
@@ -89,12 +89,12 @@ $lang["pp_money_i_certify_content"] = "Je certifie sur l'honneur que <span class
 </ul>";
 
 $lang["pp_money_to_know_title"] = "&Agrave; savoir";
-$lang["pp_money_to_know_content"] = "Outre <a href=\"http://wiki.partipirate.org/Statuts\">nos statuts</a> et <a href=\"http://wiki.partipirate.org/R%C3%A8glement_int%C3%A9rieur\">notre règlement intérieur</a> que vous devrez lire puisque vous vous engagez à vous y conformer, nous vous invitons particulièrement à prendre connaissance de <a href=\"http://wiki.partipirate.org/wiki/D%C3%A9claration_de_politique_g%C3%A9n%C3%A9rale\">notre déclaration de politique générale</a> et de <a href=\"http://wiki.partipirate.org/wiki/Programme\">notre programme</a> avant de remplir votre demande d'adhésion.
+$lang["pp_money_to_know_content"] = "Outre <a href=\"http://wiki.partipirate.org/Statuts\" target=\"_blank\">nos statuts</a> et <a href=\"http://wiki.partipirate.org/R%C3%A8glement_int%C3%A9rieur\" target=\"_blank\">notre règlement intérieur</a> que vous devrez lire puisque vous vous engagez à vous y conformer, nous vous invitons particulièrement à prendre connaissance de <a href=\"http://wiki.partipirate.org/wiki/D%C3%A9claration_de_politique_g%C3%A9n%C3%A9rale\" target=\"_blank\">notre déclaration de politique générale</a> et de <a href=\"http://wiki.partipirate.org/wiki/Programme\" target=\"_blank\">notre programme</a> avant de remplir votre demande d'adhésion.
 Les adhésions en tant que personne morale ne sont pas ouvertes.
 
 Cette adhésion est valide de date à date.
 Conformément à l’article 34 de la loi N°78-17 du 6 janvier 1978 dite « Informatique et Libertés », vous disposez d’un droit d’accès, de modification, de rectification, de suppression des données qui vous concernent sur simple demande à <a href=\"mailto:secretaires-nationaux@lists.partipirate.org\">secretaires-nationaux@lists.partipirate.org</a>. Le Parti Pirate est une association à but politique régie par la loi du 1er juillet 1901. L’Association de Financement du Parti Pirate, déclarée le 21/04/11 a été agréée le 18/07/11.
-Voir cette page pour <a href=\"https://www.partipirate.org/Mentions-legales\">notre politique informatique & Liberté</a>, de confidentialité des données communiquées avant d'adhérer.
+Voir cette page pour <a href=\"https://www.partipirate.org/Mentions-legales\" target=\"_blank\">notre politique informatique & Liberté</a>, de confidentialité des données communiquées avant d'adhérer.
 
 <strong>Vous devez indiquer votre véritable identité car se faire établir et utiliser un reçu-don sous une fausse identité constituerait une fraude fiscale.</strong>
 
@@ -114,15 +114,15 @@ Votre adhésion vaut pour une année de date à date et vous donne droit à une 
 Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.";
 
 $lang["pp_money_legal_title"] = "Mentions légales";
-$lang["pp_money_legal_content"] = "<a href=\"https://www.partipirate.org/Mentions-legales\">Consulter cette page pour les autres mentions légales.</a>";
+$lang["pp_money_legal_content"] = "<a href=\"https://www.partipirate.org/Mentions-legales\" target=\"_blank\">Consulter cette page pour les autres mentions légales.</a>";
 
 $lang["pp_money_project_goal_title"] = "Objectifs";
 
 $lang["pp_money_mail_join_title"] = "Pour adhérer par courrier";
-$lang["pp_money_mail_join_content"] = "<a href='https://www.partipirate.fr/IMG/pdf/adh2015.pdf'>Téléchargez le bulletin d'adhésion (PDF)</a>";
+$lang["pp_money_mail_join_content"] = "<a href='https://www.partipirate.fr/IMG/pdf/adh2015.pdf' target=\"_blank\">Téléchargez le bulletin d'adhésion (PDF)</a>";
 
 $lang["pp_money_mail_donate_title"] = "Pour faire un don par courrier";
-$lang["pp_money_mail_donate_content"] = "<a href='https://www.partipirate.fr/IMG/pdf/don2015.pdf'>Téléchargez le bulletin de don (PDF)</a>";
+$lang["pp_money_mail_donate_content"] = "<a href='https://www.partipirate.fr/IMG/pdf/don2015.pdf' target=\"_blank\">Téléchargez le bulletin de don (PDF)</a>";
 
 $lang["pp_money_reducing_taxes_title"] = "Réduction d'impôts";
 $lang["pp_money_reducing_taxes_content"] = "Votre adhésion vaut pour une année de date à date et vous donne droit à une réduction annuelle d’impôt sur le revenu à hauteur de 66% de son montant, dans la double limite de 20% du revenu imposable et de 15 000 € de dons par foyer fiscal.";
