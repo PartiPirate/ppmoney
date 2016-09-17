@@ -21,6 +21,13 @@ include_once("header.php");
 ?>
 <body>
 
+<div class="gradient-black-invisible pull-right" style="width: 100px;">
+	<div class="bg-white" style="height: 20px; margin: 0 0 0 1px; width: 99px;"></div>
+	<div class="bg-white text-center" style="margin-bottom: 0; padding: 0; border: 1px solid black; border-right-color: #B0B0B0; border-top-color: #B0B0B0;"><a href="https://adhesion.partipirate.org/join.php">Adhérer</a></div>
+	<div class="bg-white text-center" style="margin-bottom: 0; padding: 0; border: 1px solid black; border-top: 0; border-left-color: white;"><a href="https://don.partipirate.org/donate.php">Donner</a></div>
+	<div class="bg-white" style="height: 100px; margin: 0 0 0 1px; width: 99px;"></div>
+</div>
+
 <nav><a href="https://www.partipirate.fr/" target="_blank"><img src="assets/img/logo_pp.png" /></a></nav>
 
 <main class="clearfix">
