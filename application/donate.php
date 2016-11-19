@@ -53,7 +53,7 @@ include_once("header.php");
 	<div>
 		<div class="pull-left" id="iDonateDiv">
 			<?php echo lang("pp_money_donation_i_donate"); ?><br />
-			<input tabindex="10" type="text" name="donation" id="donationInput" value="" /> &euro;
+			<input tabindex="10" type="text" name="donation" id="donationInput" value="" class="text-right" /> &euro;
 		</div>
 
 		<?php if (lang("pp_money_reducing_taxes_value") != "0") {?>

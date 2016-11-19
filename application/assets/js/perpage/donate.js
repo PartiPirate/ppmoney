@@ -27,7 +27,16 @@ function isValidAmount(amount) {
 	amount = "" + amount;
 	amount = amount.replace(",", ".");
 
-	return (amount == amount * 1.) && amount < 7500 && amount > 0;
+	var isValid = (amount == amount * 1.) && amount < 7500 && amount > 0;
+
+	if (amount != "0" && !isValid) {
+		$("#donationInput").addClass("error")
+	}
+	else {
+		$("#donationInput").removeClass("error")
+	}
+	
+	return isValid;
 }
 
 function computeTotalAmount() {
@@ -44,6 +53,8 @@ function computeRealCost() {
 	var realCost = Math.ceil(cost * (1 - taxReduction));
 
 	$("#realCostSpan").html(realCost + "&euro;");
+	
+	isValidAmount(cost);
 }
 
 function isCompleteFormHandler(event) {

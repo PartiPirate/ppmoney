@@ -141,7 +141,7 @@ else {
 			</select>
 		</div>
 		<div id="localSectionDonationDiv" class="pull-left">
-			<?php echo lang("pp_money_local_section_donation"); ?><br/><input tabindex="401" type="text" name="localDonation" id="localDonationInput" />
+			<?php echo lang("pp_money_local_section_donation"); ?><br/><input tabindex="401" type="text" name="localDonation" id="localDonationInput" class="text-right" />
 			&euro;
 		</div>
 	</div>
@@ -152,7 +152,7 @@ else {
 	<div>
 		<div class="pull-left">
 			<?php echo lang("pp_money_donation_another_one"); ?><br />
-			<input tabindex="500" type="text" name="donation" id="donationInput" value="" />
+			<input tabindex="500" type="text" name="donation" id="donationInput" value="" class="text-right" />
 			&euro;
 		</div>
 

@@ -84,7 +84,7 @@ include_once("header.php");
 				} ?>
 		<p>
 			<?php  echo lang("pp_money_donation_another_one"); ?>
-			<input tabindex="99" type="text" name="projectAdditionalDonation" id="donationInput" value="" /> &euro;
+			<input tabindex="99" type="text" name="projectAdditionalDonation" id="donationInput" value="" class="text-right" /> &euro;
 		</p>
 	</div>
 

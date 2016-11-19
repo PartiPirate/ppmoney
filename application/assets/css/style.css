@@ -402,3 +402,9 @@ label span {
 .bg-white {
 	background: white;	
 }
+
+#donationInput.error {
+    box-shadow: 0 0 10px red;
+    border: red solid 2px;
+    outline-color: red;
+}
