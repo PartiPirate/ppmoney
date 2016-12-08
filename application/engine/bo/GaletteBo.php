@@ -376,4 +376,51 @@ class GaletteBo {
 
 		return null;
 	}
+
+	static function showPseudo($member) {
+		$identity = "";
+
+		$identity = $member["pseudo_adh"];
+
+		if (!mb_detect_encoding($identity, 'UTF-8', true)) {
+			$identity = utf8_encode($identity);
+		}
+
+		$identity = htmlentities($identity);
+
+		return $identity;
+	}
+
+	static function showFullname($member) {
+		$identity = "";
+
+		$identity = $member["nom_adh"] . " " . $member["prenom_adh"];
+
+		if (!mb_detect_encoding($identity, 'UTF-8', true)) {
+			$identity = utf8_encode($identity);
+		}
+
+		$identity = htmlentities($identity);
+
+		return $identity;
+	}
+
+	static function showIdentity($member) {
+		$identity = "";
+
+		if ($member["pseudo_adh"]) {
+			$identity = $member["pseudo_adh"];
+		}
+		else {
+			$identity = $member["nom_adh"] . " " . $member["prenom_adh"];
+		}
+
+		if (!mb_detect_encoding($identity, 'UTF-8', true)) {
+			$identity = utf8_encode($identity);
+		}
+
+		$identity = htmlentities($identity);
+
+		return $identity;
+	}
 }

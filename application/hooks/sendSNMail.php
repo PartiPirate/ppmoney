@@ -1,6 +1,6 @@
 <?php
 /*
- Copyright 2015 Cédric Levieux, Parti Pirate
+Copyright 2015-2016 Cédric Levieux, Parti Pirate
 
 This file is part of PPMoney.
 
@@ -37,6 +37,7 @@ if (isset($purpose["join"])) {
 
 	// L'adresse ici des SN
 	$mail->addAddress("secretaires-nationaux@lists.partipirate.org");
+	$mail->addCC("afpp@partipirate.org");
 	$mail->addCC("dvi@partipirate.org");
 	$mail->addBCC("contact@partipirate.org");
 
@@ -104,7 +105,7 @@ if (isset($purpose["join"])) {
 // 	}
 
 
-	$mail->SMTPSecure = "ssl";
+//	$mail->SMTPSecure = "ssl";
 	if ($mail->send()) {
 //		echo "Send SN Mails<br/>";
 	}
@@ -149,7 +150,7 @@ Le Parti Pirate";
 
 	$mail->addAddress($transaction["tra_email"]);
 
-	$mail->SMTPSecure = "ssl";
+//	$mail->SMTPSecure = "ssl";
 	if ($mail->send()) {
 //		echo "Send SN Mails<br/>";
 	}
