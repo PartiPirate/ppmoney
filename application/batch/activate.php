@@ -117,10 +117,14 @@ foreach($members as $member) {
 	// Discourse access
 	$result = $discourseApi->getUserByEmail($member["email_adh"]);
 	if (!$result) {
+		echo "Creation of discourse account needed !\n";
 		$result = $discourseApi->createUser($member["nom_adh"] . " " . $member["prenom_adh"], GaletteBo::showIdentity($member), $member["email_adh"], $password, true);
 	}
+	else {
+		echo "Creation of discourse already done !\n";
+	}
 
-//	$mail->SMTPDebug = 2;
+	$mail->SMTPDebug = 2;
 //	$mail->SMTPSecure = "ssl";
 
 	echo "Will be sent\n";
