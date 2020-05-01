@@ -1,5 +1,5 @@
 <?php /*
-	Copyright 2015 Cédric Levieux, Parti Pirate
+	Copyright 2015-2020 Cédric Levieux, Parti Pirate
 
 	This file is part of PPMoney.
 
@@ -18,7 +18,7 @@
 */
 
 // Can only be call from CLI
-if (php_sapi_name() != "cli") exit();
+//if (php_sapi_name() != "cli") exit();
 
 $monthes = array("Janvier", "Février", "Mars",
 				 "Avril", "Mai", "Juin",
@@ -37,6 +37,10 @@ require_once("engine/bo/TransactionBo.php");
 $monthly = false;
 $daily = false;
 $fromDate = new DateTime();
+
+if (isset($_REQUEST["argv"]) && is_array($_REQUEST["argv"])) {
+	$argv = $_REQUEST["argv"];
+}
 
 if (isset($argv) && count($argv)) {
 	foreach($argv as $argIndex => $argValue) {
@@ -97,8 +101,8 @@ $transactions = $transactionBo->getTransactions(array("tra_status" => "accepted"
 
 $fileHandler = fopen($treasurerFileName, "w");
 
-$headers = array("Référence", "Email", "Pseudo Forum", "Nom", "Prénom", "Adresse", "Code postal", "Ville", "Pays", "Téléphone", "Date", "Montant", "Don", "Adhésion", "Section locale", "Don à la section", "Projet", "Don au projet", "Don additionel au projet", "Election circo", "Don circo", "Inscription aux CR BN & CN", "Ventilation");
-$fields = array("tra_reference", "tra_email", ">forumPseudo", "tra_lastname", "tra_firstname", "tra_address", "tra_zipcode", "tra_city", "tra_country", "tra_telephone", "tra_date", "tra_amount", ">donation", ">join", ">local>section", ">local>donation", ">project>code", ">project>donation", ">project>additionalDonation", ">election>circo", ">election>donation", ">reportSubscription", "tra_purpose");
+$headers = array("Référence", "Email", "Pseudo Forum", "Nom", "Prénom", "Nationalité", "Nationalité ISO", "Adresse", "Code postal", "Ville", "Pays", "Téléphone", "Date", "Montant", "Type", "Don", "Adhésion", "Section locale", "Don à la section", "Projet", "Don au projet", "Don additionel au projet", "Election circo", "Don circo", "Inscription aux CR BN & CN", "Ventilation");
+$fields = array("tra_reference", "tra_email", ">forumPseudo", "tra_lastname", "tra_firstname", "tra_nationality", "tra_nationality_iso", "tra_address", "tra_zipcode", "tra_city", "tra_country", "tra_telephone", "tra_date", "tra_amount", "%typeTransaction", ">donation", ">join", ">local>section", ">local>donation", ">project>code", ">project>donation", ">project>additionalDonation", ">election>circo", ">election>donation", ">reportSubscription", "tra_purpose");
 
 fputcsv($fileHandler, $headers);
 
@@ -114,6 +118,23 @@ $general = 0;
 $projects = array();
 $elections = array();
 $sections = array();
+
+/**
+ * @returns String C if cotisation, D if donation, M if both
+ */
+function typeTransaction($transaction) {
+	$purpose = json_decode($transaction["tra_purpose"], true);
+//{"donation":"0","forumPseudo":"farlistener","project":{"code":"ELE_MUN_2020_LEVALLOIS","donation":"","additionalDonation":"100"}}
+	if (!isset($purpose["join"])) return "D";
+
+	if (isset($purpose["donation"]) && $purpose["donation"] && $purpose["donation"] != "0") return "M";
+
+	if (isset($purpose["project"]) && isset($purpose["project"]["donation"]) && $purpose["project"]["donation"] && $purpose["project"]["donation"] != "0") return "M";
+
+	if (isset($purpose["project"]) && isset($purpose["project"]["additionalDonation"]) && $purpose["project"]["additionalDonation"] && $purpose["project"]["additionalDonation"] != "0") return "M";
+
+	return "C";
+}
 
 foreach ($transactions as $transaction) {
 // 	print_r($transaction);
@@ -175,6 +196,10 @@ foreach ($transactions as $transaction) {
 
 			$data[] = $fieldData;
 		}
+		else if (substr($field, 0, 1) == "%") {
+			$method = substr($field, 1);
+			$data[] = $method($transaction);
+		}
 		else {
 			$data[] = $transaction[$field];
 		}
@@ -191,78 +216,75 @@ echo "Treasurer CSV file done\n";
 // unlink("treasurer.csv");
 // exit();
 
-$mail = getMailInstance();
+$tos = array("afpp@partipirate.org", "tresorier@partipirate.org", "contact@partipirate.org");
 
-$mail->setFrom($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
-$mail->addReplyTo($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+foreach($tos as $to) {
+	$mail = getMailInstance();
+	
+	$mail->setFrom($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+	$mail->addReplyTo($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+	
+	// L'adresse ici des trésoriers
+	$mail->addAddress($to);
 
-// L'adresse ici des trésoriers
-$mail->addAddress("afpp@partipirate.org");
-$mail->addAddress("tresorier@partipirate.org");
-
-$mailMessage = "";
-
-if (!count($transactions)) {
-	$mailMessage = "Pas de transaction";
-}
-else {
-	$mailMessage .= "Nombre de transactions : " . ($numberOfDonations + $numberOfJoins) . "\n";
-	$mailMessage .= "Dont\n";
-	$mailMessage .= "\tNombre de dons : " . ($numberOfDonations) . "\n";
-	$mailMessage .= "\tNombre d'adhésions : " . ($numberOfJoins) . "\n";
-	$mailMessage .= "\n";
-	$mailMessage .= "Montant total : " . number_format($transactionSum, 2, ",", " ") . "E\n";
-	$mailMessage .= "Montant minimum : " . number_format($transactionMin, 2, ",", " ") . "E\n";
-	$mailMessage .= "Montant moyen : " . number_format($transactionMoy, 2, ",", " ") . "E\n";
-	$mailMessage .= "Montant maximum : " . number_format($transactionMax, 2, ",", " ") . "E\n";
-	$mailMessage .= "\n";
-	$mailMessage .= "Budget général : +" . number_format($general, 2, ",", " ") . "E\n";
-	$mailMessage .= "\n";
-	if (count($sections)) {
-		$mailMessage .= "Sections :\n";
-
-		foreach($sections as $section => $amount) {
-			$mailMessage .= "\tSection $section : +" . number_format($amount, 2, ",", " ") . "E\n";
-		}
-		$mailMessage .= "\n";
+	$mailMessage = "";
+	
+	if (!count($transactions)) {
+		$mailMessage = "Pas de transaction enregistrée.\nDommage";
 	}
-	if (count($projects)) {
-		$mailMessage .= "Projets :\n";
-
-		foreach($projects as $project => $amount) {
-			$mailMessage .= "\tProjet $project : +" . number_format($amount, 2, ",", " ") . "E\n";
-		}
+	else {
+		$mailMessage .= "Bonjour, voici le compte rendu des transactions :\n\n";
+		$mailMessage .= "Nombre de transactions : " . ($numberOfDonations + $numberOfJoins) . "\n";
+		$mailMessage .= "Dont\n";
+		$mailMessage .= "\tNombre de dons : " . ($numberOfDonations) . "\n";
+		$mailMessage .= "\tNombre d'adhésions : " . ($numberOfJoins) . "\n";
 		$mailMessage .= "\n";
+		$mailMessage .= "Montant total : " . number_format($transactionSum, 2, ",", " ") . "E\n";
+		$mailMessage .= "Montant minimum : " . number_format($transactionMin, 2, ",", " ") . "E\n";
+		$mailMessage .= "Montant moyen : " . number_format($transactionMoy, 2, ",", " ") . "E\n";
+		$mailMessage .= "Montant maximum : " . number_format($transactionMax, 2, ",", " ") . "E\n";
+		$mailMessage .= "\n";
+		$mailMessage .= "Budget général : +" . number_format($general, 2, ",", " ") . "E\n";
+		$mailMessage .= "\n";
+		if (count($sections)) {
+			$mailMessage .= "Sections :\n";
+	
+			foreach($sections as $section => $amount) {
+				$mailMessage .= "\tSection $section : +" . number_format($amount, 2, ",", " ") . "E\n";
+			}
+			$mailMessage .= "\n";
+		}
+		if (count($projects)) {
+			$mailMessage .= "Projets :\n";
+	
+			foreach($projects as $project => $amount) {
+				$mailMessage .= "\tProjet $project : +" . number_format($amount, 2, ",", " ") . "E\n";
+			}
+			$mailMessage .= "\n";
+		}
+
+		$mailMessage .= "Merci\n";
+	}
+	
+	$mail->Subject = subjectEncode($subject);
+	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
+	$mail->AltBody = utf8_decode($mailMessage);
+	$mail->addAttachment($treasurerFileName, $treasurerFileName);
+	$mail->XMailer = " ";
+	
+	echo "Message attachment filename : $treasurerFileName \n";
+	echo "Message subject : $subject \n";
+	echo "Message mail : \n$mailMessage \n";
+	
+	$from = $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">";
+	
+	//$mail->SMTPSecure = "ssl";
+	$mail->SMTPDebug = 2;
+	
+	if ($mail->send()) {
+		echo "File sent\n";
 	}
 }
-
-$mail->Subject = subjectEncode($subject);
-$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
-$mail->AltBody = utf8_decode($mailMessage);
-$mail->addAttachment($treasurerFileName, $treasurerFileName);
-
-echo "Message attachment filename : $treasurerFileName \n";
-echo "Message subject : $subject \n";
-echo "Message mail : \n$mailMessage \n";
-
-$from = $config["smtp"]["from.name"] . " <".$config["smtp"]["from.address"].">";
-
-if (sendMail($from, "afpp@partipirate.org, tresorier@partipirate.org",
-			$mail->Subject,
-			str_replace("\n", "<br>\n", utf8_decode($mailMessage)),
-			$treasurerFileName,
-			"",
-			"")) {
-	echo "File sent\n";
-}
-
-//if (mail("afpp@partipirate.org", $mail->Subject, $mail->AltBody, $headers)) {
-//	echo "File sent\n";
-//}
-
-//if ($mail->send()) {
-//	echo "File sent\n";
-//}
 
 unlink($treasurerFileName);
 
