@@ -1,5 +1,5 @@
 <?php /*
-	Copyright 2015-2020 Cédric Levieux, Parti Pirate
+	Copyright 2015-2021 Cédric Levieux, Parti Pirate
 
 	This file is part of PPMoney.
 
@@ -36,6 +36,7 @@ require_once("engine/bo/TransactionBo.php");
 
 $monthly = false;
 $daily = false;
+$yearly = false;
 $fromDate = new DateTime();
 
 if (isset($_REQUEST["argv"]) && is_array($_REQUEST["argv"])) {
@@ -52,6 +53,12 @@ if (isset($argv) && count($argv)) {
 		}
 		else if ($argValue == "-d") {
 			$fromDate = new DateTime($argv[$argIndex + 1]);
+		}
+		else if ($argValue == "-y") {
+			$year = $argv[$argIndex + 1];
+			$fromDate = new DateTime($year . "-01-01");
+			$toDate   = new DateTime($year . "-12-31");
+			$yearly = true;
 		}
 	}
 }
@@ -82,6 +89,14 @@ else if ($daily) {
 
 	$treasurerFileName = $fromDate . "-cb.csv";
 }
+else if ($yearly) {
+	$fromDate = $fromDate->format("Y-m-d");
+	$toDate = $toDate->format("Y-m-d");
+
+	$treasurerFileName = $year . "-cb.csv";
+
+	$subject = "[PartiPirate] Don-adhésions de l'an $year (annuel)";
+}
 else {
 	$fromDate = $fromDate->sub(new DateInterval("P7D"));
 	$fromDate = $fromDate->format("Y-m-d");
@@ -101,8 +116,8 @@ $transactions = $transactionBo->getTransactions(array("tra_status" => "accepted"
 
 $fileHandler = fopen($treasurerFileName, "w");
 
-$headers = array("Référence", "Email", "Pseudo Forum", "Nom", "Prénom", "Nationalité", "Nationalité ISO", "Adresse", "Code postal", "Ville", "Pays", "Téléphone", "Date", "Montant", "Type", "Don", "Adhésion", "Section locale", "Don à la section", "Projet", "Don au projet", "Don additionel au projet", "Election circo", "Don circo", "Inscription aux CR BN & CN", "Ventilation");
-$fields = array("tra_reference", "tra_email", ">forumPseudo", "tra_lastname", "tra_firstname", "tra_nationality", "tra_nationality_iso", "tra_address", "tra_zipcode", "tra_city", "tra_country", "tra_telephone", "tra_date", "tra_amount", "%typeTransaction", ">donation", ">join", ">local>section", ">local>donation", ">project>code", ">project>donation", ">project>additionalDonation", ">election>circo", ">election>donation", ">reportSubscription", "tra_purpose");
+$headers =	array("Référence",		"Type",				"Date",		"Civilité", "Nom",			"Prénom",			"Mandat",	"Adresse 1",	"Adresse 2",	"Adresse 3",	"Adresse 4",	"Code postal",	"Ville", 	"Pays", 		"Nationalité",		"Monnaie",	"Montant",		"Paiement", "Titulaire",	"Nationalité ISO",		"Téléphone",		"Email",		"Pseudo Forum", "Don",			"Adhésion", "Projet",			"Don au projet",		"Don additionel au projet", 	"Election circo",	"Don circo",			"Ventilation");
+$fields =	array("tra_reference",	"%typeTransaction",	"tra_date",	"1",		"tra_lastname", "tra_firstname",	"", 		"", 			"", 			"tra_address",	"", 			"tra_zipcode",	"tra_city",	"tra_country",	"tra_nationality",	"E",		"tra_amount",	"tra_type",	"AFPP", 		"tra_nationality_iso",	"tra_telephone",	"tra_email",	">forumPseudo", ">donation",	">join",	">project>code",	">project>donation",	">project>additionalDonation",	">election>circo",	">election>donation",	"tra_purpose");
 
 fputcsv($fileHandler, $headers);
 
@@ -200,8 +215,11 @@ foreach ($transactions as $transaction) {
 			$method = substr($field, 1);
 			$data[] = $method($transaction);
 		}
-		else {
+		else if ($field && array_key_exists($field, $transaction)) {
 			$data[] = $transaction[$field];
+		}
+		else {
+			$data[] = $field;
 		}
 	}
 
@@ -216,7 +234,7 @@ echo "Treasurer CSV file done\n";
 // unlink("treasurer.csv");
 // exit();
 
-$tos = array("afpp@partipirate.org", "tresorier@partipirate.org", "contact@partipirate.org");
+$tos = array("tresorier@mon.org");
 
 foreach($tos as $to) {
 	$mail = getMailInstance();
@@ -226,6 +244,9 @@ foreach($tos as $to) {
 	
 	// L'adresse ici des trésoriers
 	$mail->addAddress($to);
+//	$mail->addAddress("afpp@partipirate.org");
+//	$mail->addAddress("tresorier@partipirate.org");
+//	$mail->addBCC("contact@partipirate.org");
 
 	$mailMessage = "";
 	
